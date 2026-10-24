@@ -21,6 +21,24 @@
 .photo-slot:nth-child(2) .photo-empty{background:#38443f}
 .photo-slot img{display:block;width:100%;height:auto;object-fit:contain;background:#18201e}
 @media(max-width:760px){.career-row{grid-template-columns:1fr;gap:8px;padding:19px 0}.career-row h3{font-size:12px}.career-row p{font-size:12px}.profile-document-note{font-size:10px}.contribution-list dt{font-size:10px}}
+/* 本人摄影保持原比例；文字放在图外，不压住作品，也不套色彩滤镜。 */
+.hero-visual.personal-photo{aspect-ratio:auto;background:transparent;overflow:visible}
+.personal-photo>img{width:100%;height:auto;object-fit:contain;display:block}
+.personal-photo .visual-topline{top:17px;left:18px;right:18px;color:white;text-shadow:0 1px 6px #0008}
+.personal-photo .visual-caption{position:static;padding:23px 0 0;color:var(--ink)}
+.personal-photo .visual-overline{color:var(--muted);font-size:8px;margin-bottom:8px}
+.personal-photo .visual-title{font-size:24px;line-height:1.5;white-space:normal}
+.personal-photo .visual-note{color:var(--muted);margin-top:10px;font-size:9px}
+.photo-grid{grid-column:1/-1;display:block;columns:2;column-gap:24px}
+.photo-card{display:inline-block;width:100%;break-inside:avoid;margin-bottom:27px;vertical-align:top}
+.photo-card a{display:block;background:#11191c}
+.photo-card img{display:block;width:100%;height:auto;object-fit:contain}
+.photo-card figcaption{font-size:9px;letter-spacing:.8px;margin-top:12px;line-height:1.8}
+.tool-result{padding:18px 0 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:22px}
+.tool-result>span{display:block;font-size:9px;color:var(--muted);letter-spacing:.05em}
+.tool-result strong{display:block;font-size:23px;font-weight:500;line-height:1.6;letter-spacing:.015em;margin:6px 0 7px}
+.tool-result small{display:block;font-size:9px;line-height:1.9;color:var(--muted)}
+@media(max-width:760px){.hero-visual.personal-photo{max-height:none}.personal-photo .visual-caption{padding-top:17px}.personal-photo .visual-title{font-size:22px}.photo-grid{columns:1}.photo-card{margin-bottom:24px}.tool-result strong{font-size:21px}}
 /* 英文需要稍有不同的行距，布局本身保持一致。 */
 html[lang=en] h1{font-size:clamp(38px,3.9vw,59px);line-height:1.18;letter-spacing:-.035em;margin-bottom:28px}html[lang=en] h2{line-height:1.35;letter-spacing:-.015em}html[lang=en] h3{line-height:1.35;letter-spacing:-.015em}html[lang=en] .visual-title{line-height:1.35;letter-spacing:0}html[lang=en] .sapporo-quote{line-height:1.5}html[lang=en] .hero-description{line-height:1.9}
 /* 4. 平板、手机与打印样式。 */

@@ -1,0 +1,14 @@
+/* 常用视觉设置：改数值后保存，再刷新本地页面即可。 */
+:root {
+  --paper: #fafaf8;   /* 页面底色 */
+  --ink: #242d2b;     /* 标题、主要文字 */
+  --muted: #606c67;   /* 次要文字 */
+  --line: #d8ddd8;    /* 分隔线 */
+  --accent: #9b4b30;  /* 小编号等强调色 */
+  --forest: #1d2428;  /* 摄影区底色 */
+}
+
+/* 三个最常见的微调入口。 */
+.hero h1 { font-size: clamp(36px, 3.4vw, 54px); }
+.hero { column-gap: 56px; }
+.photo-grid { column-gap: 24px; }

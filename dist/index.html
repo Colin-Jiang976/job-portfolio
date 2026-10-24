@@ -8,7 +8,9 @@
   <title>Cloud & Nature | 求職ポートフォリオ</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="theme.css">
   <script src="content.js" defer></script>
+  <script src="photos.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -39,7 +41,7 @@
   <main id="main">
     <section class="hero section-wrap" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="status-dot"></span> JUNIOR CLOUD ENGINEER <span class="eyebrow-divider">/</span> SAPPORO</p>
+        <p class="eyebrow"><span class="status-dot"></span> <span data-i18n="roleTag">CLOUD / INFRASTRUCTURE</span> <span class="eyebrow-divider">/</span> SAPPORO</p>
         <h1 id="hero-title" data-i18n="heroTitle">運用の気づきを、
 クラウドの力に。</h1>
         <p class="hero-description" data-i18n="heroCopy">AWSへの取り組みと、業務で使う監視ツール。
@@ -50,14 +52,14 @@
         </div>
         <p class="hero-footnote"><span class="small-line"></span><span data-i18n="heroNote">クラウドの学びと、自然のある暮らし。</span></p>
       </div>
-      <figure class="hero-visual">
-        <img src="assets/landscape.svg" alt="" width="760" height="920">
+      <figure class="hero-visual personal-photo">
+        <img id="hero-photo" src="assets/photos/IMG_8655.webp" alt="湖畔と富士山" data-i18n-alt="photoLake" width="1800" height="1200" fetchpriority="high">
         <div class="visual-topline"><span>FIELD NOTES — 01</span><span aria-hidden="true">＋</span></div>
         <figcaption class="visual-caption">
-          <span class="visual-overline">HOKKAIDO, JAPAN</span>
+          <span class="visual-overline">PHOTOGRAPHY / JAPAN</span>
           <span class="visual-title" data-i18n="visualTitle">自然の近くで、
 次の一歩を。</span>
-          <span class="visual-note" data-i18n="visualNote">仮イラスト · 本人の撮影作品へ差し替え予定</span>
+          <span class="visual-note" data-i18n="visualNote">本人撮影 · Original photography</span>
         </figcaption>
       </figure>
     </section>
@@ -66,24 +68,24 @@
       <div class="section-label"><span class="section-number">01</span><span>ABOUT ME</span></div>
       <div class="intro-content">
         <h2 id="about-title" data-i18n="aboutTitle">経歴と、今できること。</h2>
-        <p class="intro-copy" data-i18n="aboutCopy">目指しているのは、ジュニア・クラウドエンジニア。AWSの実践と、業務で使う monitoring tool を通じて、技術への取り組みと自動化への関心を伝えたいと考えています。</p>
+        <p class="intro-copy" data-i18n="aboutCopy">運用保守と、ローコードツールを使った開発学習・演習に取り組んでいます。業務用の monitoring tool を自作した経験を土台に、AWSを学びながらクラウド・インフラ領域への転職を目指しています。</p>
         <dl class="profile-facts">
-          <div><dt data-i18n="roleLabel">希望職種</dt><dd data-i18n="roleValue">ジュニア・クラウドエンジニア</dd></div>
+          <div><dt data-i18n="roleLabel">希望分野</dt><dd data-i18n="roleValue">クラウド・インフラ関連職</dd></div>
           <div><dt data-i18n="placeLabel">希望勤務地</dt><dd data-i18n="placeValue">札幌</dd></div>
           <div><dt data-i18n="interestLabel">関心のある領域</dt><dd data-i18n="interestValue">AWS / 運用 / 自動化</dd></div>
         </dl>
         <div class="career-profile">
           <section class="career-row" aria-labelledby="career-heading">
             <h3 id="career-heading" data-i18n="careerTitle">職務経歴</h3>
-            <p data-i18n="careerCopy">在籍期間・職種・担当範囲を整理して掲載します。具体的な経歴は確認後に追記します。</p>
+            <p data-i18n="careerCopy">運用保守業務、およびローコードツールを用いた開発学習・演習。在籍期間や担当業務の詳細は今後追記します。</p>
           </section>
           <section class="career-row" aria-labelledby="experience-heading">
             <h3 id="experience-heading" data-i18n="experienceTitle">主な取り組み</h3>
-            <p data-i18n="experienceCopy">業務で使用している monitoring tool。本人が担当した部分と改善内容は、確認して追記します。</p>
+            <p data-i18n="experienceCopy">monitoring tool を自作し、従来40〜50分かかっていた作業を十数分に短縮しました。処理内容と確認方法は、プロジェクト紹介で補足していきます。</p>
           </section>
           <section class="career-row" aria-labelledby="skills-heading">
             <h3 id="skills-heading" data-i18n="skillsTitle">スキル・資格</h3>
-            <p data-i18n="skillsCopy">AWSで実施したこと、扱えるツール、保有資格を、確認できた範囲で記載します。</p>
+            <p data-i18n="skillsCopy">AWS CLF：取得済み。AWS SAA：学習中。</p>
           </section>
         </div>
         <p class="profile-document-note" data-i18n="profileNote">経歴の要点はこのページで読めるようにし、提出用の履歴書・職務経歴書も別途用意します。</p>
@@ -126,7 +128,8 @@ AWS実践のひとつに。</h3>
           <div class="project-meta"><span>MONITORING / AUTOMATION</span><span class="project-status" data-i18n="toolStatus">業務で使用 · 紹介準備中</span></div>
           <h3 data-i18n="toolTitle">日々の監視から、
 自動化のきっかけを。</h3>
-          <p data-i18n="toolCopy">実際の業務で使っている monitoring tool。どんな課題に気づき、どのように工夫したのか。自動化への関心を、実務の取り組みから伝えます。</p>
+          <p data-i18n="toolCopy">業務で使う monitoring tool を自作。従来40〜50分かかっていた作業を十数分に短縮しました。日々の手間に気づき、道具をつくって改善する取り組みです。</p>
+          <div class="tool-result"><span data-i18n="toolResultLabel">作業時間の変化</span><strong data-i18n="toolResult">40〜50分 → 十数分</strong><small data-i18n="toolResultNote">本人の実務経験に基づく概算。対象作業と確認方法は追記予定。</small></div>
           <details><summary><span data-i18n="toolSummary">紹介・デモについて</span><span class="details-icon" aria-hidden="true">＋</span></summary><p data-i18n="toolDetail">課題、本人が担当した部分、動作と検証結果を整理しています。具体的な紹介内容とデモの見せ方は検討中です。このページに動作するツールのデモはまだありません。</p></details>
         </div>
       </article>
@@ -138,10 +141,7 @@ AWS実践のひとつに。</h3>
 暮らしのそばに。</h2><span class="sapporo-word" aria-hidden="true">SAPPORO</span></div>
         <div class="sapporo-story"><span class="story-kicker" data-i18n="sapporoKicker">この街を選びたい理由</span><p data-i18n="sapporoCopy">自然が好きで、自然の豊かな場所で暮らしたい。その思いが、札幌を選ぶ理由です。クラウドの仕事に挑戦することと、自分らしい暮らしをつくること。その両方を大切にしたいと考えています。</p><p class="sapporo-quote" data-i18n="sapporoQuote">写真は、好きなものと、
 暮らしたい場所を伝える言葉。</p><p class="photo-intro" data-i18n="photoIntro">ここには、自分で撮影した作品を掲載していきます。</p></div>
-        <div class="photo-grid" aria-label="Photography / 写真 / 摄影">
-          <figure class="photo-slot photo-slot-wide"><div class="photo-empty"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 5h10M5 5v10m30-10H25m10 0v10M5 35h10M5 35V25m30 10H25m10 0V25M11 28l8-11 5 7 4-4 6 8"/></svg><span data-i18n="photoPlaceholder">本人の作品を掲載予定</span></div><figcaption><span>PHOTOGRAPHY / 01</span><span data-i18n="photoCaption">写真を準備中</span></figcaption></figure>
-          <figure class="photo-slot"><div class="photo-empty"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 5h10M5 5v10m30-10H25m10 0v10M5 35h10M5 35V25m30 10H25m10 0V25M11 28l8-11 5 7 4-4 6 8"/></svg><span data-i18n="photoPlaceholder">本人の作品を掲載予定</span></div><figcaption><span>PHOTOGRAPHY / 02</span><span data-i18n="photoCaption">写真を準備中</span></figcaption></figure>
-        </div>
+        <div class="photo-grid" id="photo-gallery" aria-label="Photography / 写真 / 摄影"></div>
       </div>
     </section>
 

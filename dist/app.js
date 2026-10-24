@@ -1,9 +1,42 @@
-// 页面只需要三个交互：切换语言、手机导航和打印。
+// 页面文字从 content.js 读取；照片路径与顺序从 photos.js 读取。
 (() => {
   const translations = window.PORTFOLIO_TEXT;
   const languageButtons = document.querySelectorAll('[data-lang]');
   const menuButton = document.querySelector('.menu-toggle');
   const mobileNav = document.querySelector('#mobile-nav');
+
+  // 按配置生成相册。更换图片、排序或标题不需要修改这段代码。
+  const photos = window.PORTFOLIO_PHOTOS;
+  const hero = document.querySelector('#hero-photo');
+  hero.src = photos.hero.src;
+  hero.width = photos.hero.width;
+  hero.height = photos.hero.height;
+  hero.dataset.i18nAlt = photos.hero.captionKey;
+  const gallery = document.querySelector('#photo-gallery');
+  photos.gallery.forEach((photo, index) => {
+    const figure = document.createElement('figure');
+    figure.className = 'photo-slot photo-card';
+    const link = document.createElement('a');
+    link.href = photo.src;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    const image = document.createElement('img');
+    image.src = photo.src;
+    image.width = photo.width;
+    image.height = photo.height;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    image.dataset.i18nAlt = photo.captionKey;
+    link.append(image);
+    const caption = document.createElement('figcaption');
+    const number = document.createElement('span');
+    number.textContent = `PHOTOGRAPHY / ${String(index + 1).padStart(2, '0')}`;
+    const title = document.createElement('span');
+    title.dataset.i18n = photo.captionKey;
+    caption.append(number, title);
+    figure.append(link, caption);
+    gallery.append(figure);
+  });
 
   function setLanguage(language) {
     if (!Object.hasOwn(translations, language)) return;
@@ -14,6 +47,9 @@
     document.querySelectorAll('[data-i18n]').forEach(element => {
       const key = element.dataset.i18n;
       if (Object.hasOwn(text, key)) element.textContent = text[key];
+    });
+    document.querySelectorAll('[data-i18n-alt]').forEach(image => {
+      image.alt = text[image.dataset.i18nAlt] || '';
     });
     languageButtons.forEach(button => {
       button.setAttribute('aria-pressed', String(button.dataset.lang === language));
