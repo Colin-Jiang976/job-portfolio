@@ -4,6 +4,8 @@
 
 ## 本人最新决定
 
+最新实现：已选 DynamoDB 的前提不变，按本人指示将 Lambda 本地后端换为 Python 3.12，取消照片标题三语必填，允许无标题/单一名称/部分译名并回退文件名。分类筛选和 Log Check 联动均暂不加，云端尚未迁移 Python；详见 docs/照片应用第一版.md 与 PROJECT_STATUS.md 最新阶段。
+
 最新实际进展：首版四项建议已接受，本地版与 Lambda 代码已准备，七项测试与浏览器验证通过；部署说明见 job-portfolio/docs/照片应用第一版.md。GitHub 私有基线已推送。下一步由本人体验“读资料 → 显示预览 → 下载原 JPG”，再部署 DynamoDB；不重新询问首版范围，不把本地模拟当作云验收。
 
 已选型：本人明确选择 DynamoDB；常规 RDS/Aurora 不进入首版实现。接下来集中决定下载形式、上传维护、分页浏览范围与预算，建议及已确认边界见 job-portfolio/docs/PHOTO_APP_PLAN.md。本人另要求恰当节点放到 GitHub，计划在首版范围确定后、动态开发前准备基线，未创建远程或推送。下文保留方案比较，不再将 DynamoDB 记成仅助手建议。

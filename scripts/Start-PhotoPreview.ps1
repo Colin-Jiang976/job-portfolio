@@ -10,10 +10,12 @@ $nodeExecutable = if ($nodeCommand) { $nodeCommand.Source } else {
     Join-Path $env:USERPROFILE '.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe'
 }
 if (-not (Test-Path -LiteralPath $nodeExecutable)) { throw '未找到 Node.js，请安装官方 Node.js 24 或在已配置的终端运行。' }
+$pythonExecutable = Join-Path $env:USERPROFILE '.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
+if (-not (Test-Path -LiteralPath $pythonExecutable)) {
+    $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
+    if (-not $pythonCommand) { throw '未找到 Python，请安装 Python 3.12 或配置 Python 运行时。' }
+    $pythonExecutable = $pythonCommand.Source
+}
 & $nodeExecutable (Join-Path $PSScriptRoot 'prepare-photo-data.cjs') $OriginalDirectory
 if ($LASTEXITCODE -ne 0) { throw '照片资料准备失败，预览没有启动。' }
-$previousPort = $env:PHOTO_PREVIEW_PORT
-try {
-    $env:PHOTO_PREVIEW_PORT = [string]$Port
-    & $nodeExecutable (Join-Path $PSScriptRoot 'photo-dev-server.mjs')
-} finally { $env:PHOTO_PREVIEW_PORT = $previousPort }
+& $pythonExecutable -X utf8 (Join-Path $PSScriptRoot 'photo_dev_server.py') --port $Port

@@ -4,6 +4,8 @@
 
 ## 最新目标
 
+当前实际版本：本人要求暂不加功能，仅改 Python 后端和去掉三语照片名必填；本地已完成，入口 backend/photo-api/lambda_function.py，Python 3.12，处理程序 lambda_function.lambda_handler。八项 Python 测试及浏览器可选标题回退通过，旧 JS 后端/本地服务已移除，界面 JS 与三语保留。现有五张名称保留，新增照片可不命名、只填一个名称或部分译名，缺省显示文件名。部署包 .local/photo-app/deploy-20261025-210328-778/photo-api.zip。DynamoDB 五条资料已由本人导入，云端 Lambda 仍是旧 Node.js 包；本轮未改云端或加分类/Log Check 联动。本人希望之后慢慢读，不安排当下操作/测试。恢复后先确认阅读需要，再在原函数迁移运行时/处理程序/ZIP，无需重建表或重新导入旧五条。
+
 GitHub 已完成本轮上传：私有仓库 https://github.com/Colin-Jiang976/job-portfolio ，基线 fb2e902、本地照片应用实现 4b0cc37 已推送 main，远程 SHA 已核对。下文“实现待推送/仍未提交”属于此前阶段记录。当前先打开本地五张样本应用体验，再由本人控制台创建 DynamoDB 表；AWS 动态资源尚未创建。
 
 最新实际进展：本人接受首版建议，已完成本地照片应用、只读 Lambda 代码和部署材料，尚未创建 DynamoDB/Lambda 或更新 AWS。五张原图下载字节/哈希、53 条合成分页、输入与错误处理程序测试共七项通过；浏览器三语/五图/大图/实际下载已核对。390px DOM 单列无横溢，手机截图工具失败，默认尺寸已恢复。说明见 job-portfolio/docs/照片应用第一版.md。本人已创建私有 GitHub 仓库 https://github.com/Colin-Jiang976/job-portfolio ，基线 fb2e902 已推送，后续实现提交看 Git 历史。原 roleValue 试改已随基线保存，字节未变，不再是未提交状态，不擅自定稿。密钥与完整邀请、原 JPG、生成材料继续忽略。下一步先本人体验本地，再本人控制台建表及后续 CloudShell 解释；理解状态未获新反馈。

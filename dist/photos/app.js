@@ -14,12 +14,17 @@
   if (!Object.hasOwn(texts, language)) language = 'ja';
   const text = (key, values = {}) => texts[language][key].replace(/\{(\w+)\}/g, (_, name) => values[name] ?? '');
   function updateStatus(key) { statusKey = key; status.textContent = key ? text(key) : ''; }
+  // 人工标题可选；单一标题用于所有语言，没有当前语言标题时显示原文件名。
+  function photoTitle(photo) {
+    if (typeof photo.title === 'string' && photo.title.trim()) return photo.title;
+    return photo.title?.[language]?.trim() || photo.filename;
+  }
 
   function updatePreview() {
     if (!selectedPhoto) return;
-    document.querySelector('#preview-title').textContent = selectedPhoto.title[language];
+    document.querySelector('#preview-title').textContent = photoTitle(selectedPhoto);
     document.querySelector('#preview-image').src = selectedPhoto.previewUrl;
-    document.querySelector('#preview-image').alt = selectedPhoto.title[language];
+    document.querySelector('#preview-image').alt = photoTitle(selectedPhoto);
     const link = document.querySelector('#preview-download');
     link.href = selectedPhoto.downloadUrl; link.download = selectedPhoto.filename;
   }
@@ -32,15 +37,15 @@
     photos.forEach(photo => {
       const card = document.createElement('article'); card.className = 'photo-card';
       const preview = document.createElement('button'); preview.type = 'button'; preview.className = 'preview-button';
-      preview.setAttribute('aria-label', text('preview', { title: photo.title[language] }));
-      const image = document.createElement('img'); image.src = photo.previewUrl; image.alt = photo.title[language]; image.loading = 'lazy';
+      preview.setAttribute('aria-label', text('preview', { title: photoTitle(photo) }));
+      const image = document.createElement('img'); image.src = photo.previewUrl; image.alt = photoTitle(photo); image.loading = 'lazy';
       image.addEventListener('error', () => {
         if (card.querySelector('.image-error')) return;
         const warning = document.createElement('p'); warning.className = 'image-error'; warning.textContent = text('imageError'); card.append(warning);
       });
       preview.append(image);
       preview.addEventListener('click', () => { selectedPhoto = photo; updatePreview(); dialog.showModal(); });
-      const title = document.createElement('h3'); title.textContent = photo.title[language];
+      const title = document.createElement('h3'); title.textContent = photoTitle(photo);
       const info = document.createElement('p'); info.className = 'file-info';
       info.textContent = `JPG · ${new Intl.NumberFormat(language, { maximumFractionDigits: 1 }).format(photo.sizeBytes / 1000000)} MB`;
       const download = document.createElement('a'); download.className = 'download'; download.href = photo.downloadUrl;
@@ -58,8 +63,11 @@
   function validatePhoto(photo) {
     const sameOriginPath = (value, prefix) => typeof value === 'string' && value.startsWith(prefix) &&
       new URL(value, location.origin).origin === location.origin && !value.includes('..');
+    const validTitle = value => value == null || (typeof value === 'string' && value.length <= 300) ||
+      (typeof value === 'object' && !Array.isArray(value) && Object.entries(value).every(([lang, title]) =>
+        ['ja', 'zh', 'en'].includes(lang) && typeof title === 'string' && title.length <= 300));
     return photo && typeof photo.id === 'string' && Number.isSafeInteger(photo.sizeBytes) && photo.sizeBytes > 0 &&
-      typeof photo.filename === 'string' && ['ja', 'zh', 'en'].every(lang => typeof photo.title?.[lang] === 'string') &&
+      typeof photo.filename === 'string' && validTitle(photo.title) &&
       sameOriginPath(photo.previewUrl, '/assets/photos/') && sameOriginPath(photo.downloadUrl, '/photo-originals/main/');
   }
   async function loadPage(cursor, targetIndex) {

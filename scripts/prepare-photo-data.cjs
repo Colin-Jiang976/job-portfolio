@@ -5,6 +5,19 @@ const vm = require('node:vm');
 const crypto = require('node:crypto');
 const root = path.resolve(__dirname, '..');
 
+function optionalTitle(value) {
+  const clean = text => {
+    if (typeof text !== 'string' || text.length > 300) throw new Error('标题须为不超过 300 字的文字。');
+    return text.trim();
+  };
+  if (value == null) return undefined;
+  if (typeof value === 'string') return clean(value) || undefined;
+  if (typeof value !== 'object' || Array.isArray(value)) throw new Error('标题格式无效。');
+  const translated = Object.fromEntries(['ja', 'zh', 'en'].filter(lang => value[lang] !== undefined)
+    .map(lang => [lang, clean(value[lang])]).filter(([, text]) => text));
+  return Object.keys(translated).length ? translated : undefined;
+}
+
 function prepare(sourceDirectory) {
   const source = fs.realpathSync(sourceDirectory);
   const selection = JSON.parse(fs.readFileSync(path.join(root, 'config/photo-selection.json'), 'utf8'));
@@ -22,14 +35,14 @@ function prepare(sourceDirectory) {
     if (!fs.existsSync(path.join(root, 'dist', photo.previewKey))) throw new Error(`预览图不存在：${photo.id}`);
     const file = fs.readFileSync(path.join(source, photo.filename));
     if (file[0] !== 0xff || file[1] !== 0xd8) throw new Error(`不是 JPG 文件：${photo.id}`);
-    const title = Object.fromEntries(['ja', 'zh', 'en'].map(lang => {
-      const value = photo.title?.[lang] ?? context.window.PORTFOLIO_TEXT[lang][photo.captionKey];
-      if (typeof value !== 'string' || !value.trim() || value.length > 300) throw new Error(`缺少 ${photo.id} 的 ${lang} 标题，或标题过长。`);
-      return [lang, value];
-    }));
+    // 旧五张可沿用已有译名；新增照片可以完全不填 title/captionKey。
+    const titleSource = Object.hasOwn(photo, 'title') ? photo.title : (photo.captionKey ? Object.fromEntries(
+      ['ja', 'zh', 'en'].filter(lang => context.window.PORTFOLIO_TEXT[lang][photo.captionKey] !== undefined)
+        .map(lang => [lang, context.window.PORTFOLIO_TEXT[lang][photo.captionKey]])) : undefined);
+    const title = optionalTitle(titleSource);
     return {
       PK: `ALBUM#${selection.albumId}`, SK: `PHOTO#${String(photo.order).padStart(9, '0')}#${photo.id}`,
-      id: photo.id, title, previewKey: photo.previewKey,
+      id: photo.id, ...(title === undefined ? {} : { title }), previewKey: photo.previewKey,
       originalKey: `photo-originals/${selection.albumId}/${photo.id}.jpg`, filename: photo.filename,
       sizeBytes: file.length, sha256: crypto.createHash('sha256').update(file).digest('hex')
     };
@@ -53,7 +66,7 @@ function prepare(sourceDirectory) {
   console.log(`已生成 ${items.length} 张照片的本地资料，共 ${items.reduce((sum, item) => sum + item.sizeBytes, 0).toLocaleString('en-US')} 字节。没有调用 AWS。`);
   return items;
 }
-module.exports = { prepare };
+module.exports = { prepare, optionalTitle };
 if (require.main === module) {
   try {
     if (!process.argv[2]) throw new Error('用法：node scripts/prepare-photo-data.cjs "原 JPG 所在文件夹"');

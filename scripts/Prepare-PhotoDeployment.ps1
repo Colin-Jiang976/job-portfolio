@@ -20,7 +20,7 @@ foreach ($photo in $catalog) {
     Copy-Item -LiteralPath $sourcePath -Destination $destination
 }
 $apiDirectory = Join-Path $projectRoot 'backend/photo-api'
-Compress-Archive -LiteralPath @((Join-Path $apiDirectory 'index.mjs'), (Join-Path $apiDirectory 'core.mjs')) -DestinationPath (Join-Path $outputDirectory 'photo-api.zip')
+Compress-Archive -LiteralPath (Join-Path $apiDirectory 'lambda_function.py') -DestinationPath (Join-Path $outputDirectory 'photo-api.zip')
 $catalogNames = @('catalog.json', 'upload-plan.json')
 foreach ($catalogName in $catalogNames) { Copy-Item -LiteralPath (Join-Path $localRoot $catalogName) -Destination (Join-Path $outputDirectory $catalogName) }
 # 按本次条数列出确切文件，避免重用旧选择清单残留的批次。
