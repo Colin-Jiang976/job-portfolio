@@ -1,0 +1,5 @@
+{
+  "rawPath": "/api/photos",
+  "rawQueryString": "",
+  "requestContext": {"http": {"method": "GET"}}
+}

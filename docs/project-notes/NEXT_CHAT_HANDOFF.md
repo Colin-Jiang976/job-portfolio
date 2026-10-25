@@ -4,6 +4,8 @@
 
 ## 最新目标
 
+最新推进决定：本人决定今天先完成首版上线，代码理解可随后进行；条件搜索留下一版。相册已统一隐藏可见标题和文件名，原名称仅作辅助阅读；本地五卡片/五下载入口及无可见标题/文件名已核对。当前指导原 Lambda 换 Python、本人 CloudShell 用 scripts/grant-photo-read.sh 加指定 main 相册 Query 权限并测试，尚未收到这组结果；之后接受邀请保护的 CloudFront API，再上传原图和页面验收。不要照旧的“暂停配置”继续停在纯讲解。
+
 当前实际版本：本人要求暂不加功能，仅改 Python 后端和去掉三语照片名必填；本地已完成，入口 backend/photo-api/lambda_function.py，Python 3.12，处理程序 lambda_function.lambda_handler。八项 Python 测试及浏览器可选标题回退通过，旧 JS 后端/本地服务已移除，界面 JS 与三语保留。现有五张名称保留，新增照片可不命名、只填一个名称或部分译名，缺省显示文件名。部署包 .local/photo-app/deploy-20261025-210328-778/photo-api.zip。DynamoDB 五条资料已由本人导入，云端 Lambda 仍是旧 Node.js 包；本轮未改云端或加分类/Log Check 联动。本人希望之后慢慢读，不安排当下操作/测试。恢复后先确认阅读需要，再在原函数迁移运行时/处理程序/ZIP，无需重建表或重新导入旧五条。
 
 GitHub 已完成本轮上传：私有仓库 https://github.com/Colin-Jiang976/job-portfolio ，基线 fb2e902、本地照片应用实现 4b0cc37 已推送 main，远程 SHA 已核对。下文“实现待推送/仍未提交”属于此前阶段记录。当前先打开本地五张样本应用体验，再由本人控制台创建 DynamoDB 表；AWS 动态资源尚未创建。

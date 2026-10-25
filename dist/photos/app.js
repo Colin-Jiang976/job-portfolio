@@ -14,15 +14,15 @@
   if (!Object.hasOwn(texts, language)) language = 'ja';
   const text = (key, values = {}) => texts[language][key].replace(/\{(\w+)\}/g, (_, name) => values[name] ?? '');
   function updateStatus(key) { statusKey = key; status.textContent = key ? text(key) : ''; }
-  // 人工标题可选；单一标题用于所有语言，没有当前语言标题时显示原文件名。
+  // 名称仅作辅助阅读标签；相册不显示标题，也不以原文件名补标题。
   function photoTitle(photo) {
     if (typeof photo.title === 'string' && photo.title.trim()) return photo.title;
-    return photo.title?.[language]?.trim() || photo.filename;
+    return photo.title?.[language]?.trim() || text('photoNumber', { number: pageIndex * 24 + photos.indexOf(photo) + 1 });
   }
 
   function updatePreview() {
     if (!selectedPhoto) return;
-    document.querySelector('#preview-title').textContent = photoTitle(selectedPhoto);
+    document.querySelector('#preview-title').textContent = text('previewTitle');
     document.querySelector('#preview-image').src = selectedPhoto.previewUrl;
     document.querySelector('#preview-image').alt = photoTitle(selectedPhoto);
     const link = document.querySelector('#preview-download');
@@ -45,13 +45,13 @@
       });
       preview.append(image);
       preview.addEventListener('click', () => { selectedPhoto = photo; updatePreview(); dialog.showModal(); });
-      const title = document.createElement('h3'); title.textContent = photoTitle(photo);
       const info = document.createElement('p'); info.className = 'file-info';
       info.textContent = `JPG · ${new Intl.NumberFormat(language, { maximumFractionDigits: 1 }).format(photo.sizeBytes / 1000000)} MB`;
       const download = document.createElement('a'); download.className = 'download'; download.href = photo.downloadUrl;
       download.download = photo.filename; download.textContent = text('download');
+      download.setAttribute('aria-label', text('download') + ' · ' + photoTitle(photo));
       download.addEventListener('click', () => updateStatus('downloadStarted'));
-      card.append(preview, title, info, download); gallery.append(card);
+      card.append(preview, info, download); gallery.append(card);
     });
     document.querySelector('#page-summary').textContent = photos.length ? text('loaded', { start: pageIndex * 24 + 1, end: pageIndex * 24 + photos.length }) : '';
     document.querySelector('#page-number').textContent = text('page', { page: pageIndex + 1 });

@@ -1,7 +1,7 @@
 // 照片应用的界面文字。照片标题来自接口，原求职文案文件保持独立。
 window.PHOTO_TEXT = {
   ja: {
-    pageTitle: '写真 | Cloud & Nature', skip: '本文へ移動',
+    pageTitle: '写真 | Cloud & Nature', skip: '本文へ移動', photoNumber: '写真 {number}', previewTitle: '写真のプレビュー',
     title: '写真を見て、原寸でダウンロード。',
     intro: '自分で撮影し、仕上げた写真です。プレビューで選んで、元のサイズの JPG を保存できます。',
     albumTitle: '写真コレクション', localNotice: 'ローカル動作確認用です。AWS のデータベース・招待認証には接続していません。',
@@ -16,7 +16,7 @@ window.PHOTO_TEXT = {
     imageError: 'プレビュー画像を読み込めません。', back: 'ポートフォリオへ戻る'
   },
   zh: {
-    pageTitle: '照片 | Cloud & Nature', skip: '跳转到正文',
+    pageTitle: '照片 | Cloud & Nature', skip: '跳转到正文', photoNumber: '照片 {number}', previewTitle: '照片预览',
     title: '浏览照片，下载原尺寸 JPG。',
     intro: '这里是我拍摄并修图后的作品。先看预览，再保存原尺寸的 JPG 文件。',
     albumTitle: '照片相册', localNotice: '这是本地功能验证，尚未连接 AWS 数据库或验证云端邀请权限。',
@@ -31,7 +31,7 @@ window.PHOTO_TEXT = {
     imageError: '预览图读取失败。', back: '返回求职网站'
   },
   en: {
-    pageTitle: 'Photography | Cloud & Nature', skip: 'Skip to content',
+    pageTitle: 'Photography | Cloud & Nature', skip: 'Skip to content', photoNumber: 'Photograph {number}', previewTitle: 'Photo preview',
     title: 'Explore the photographs. Keep the full-size JPG.',
     intro: 'Photographs I have taken and edited. Explore the previews, then save the original-size JPG files.',
     albumTitle: 'Photo collection', localNotice: 'Local function check. AWS database access and cloud invitation permissions have not been verified here.',

@@ -4,6 +4,12 @@
 
 ## 当前阶段
 
+恢复部署与隐藏名称（2026-10-25）：本人决定今天先完成首版，代码理解可完成后再进行；条件搜索明确留到下一版。首版相册已改为统一不显示照片标题/原文件名，大图显示通用预览标题；名称资料保留且仅供辅助阅读，缺省辅助标签用照片编号。JS/三语键检查通过，浏览器核对五张卡片、五个下载入口、可见标题和文件名均为零。后端/数据库结构不变，Python ZIP 继续使用 deploy-20261025-210328-778/photo-api.zip。
+
+已准备本人 CloudShell 用 grant-photo-read.sh（只给已有 Lambda 角色授予 main 相册 Query）及 Lambda test-event.json。当前指导原 cj-photo-api 改 Python 3.12、处理程序和 ZIP，再本人执行只读授权并测试五条资料；尚未收到实际迁移、授权或读取结果。随后接受保护的 CloudFront API，再上传原图/页面及验收。不重复创建既有表、桶或分配。
+
+GitHub 同步完成：Python/可选标题迁移提交 9483eab 已推送私有仓库 main，并核对远程提交一致。云端未修改，现有五条 DynamoDB 资料无需重导；新的 Python ZIP 留待本人准备好后替换原函数。
+
 Python 与可选标题迁移完成（2026-10-25）：按本人最新指示，仅将 Lambda 改为 Python 3.12，后端合并为 backend/photo-api/lambda_function.py（入口 lambda_function.lambda_handler）；移除旧 index.mjs/core.mjs，本地服务和测试也换成 Python。网页仍为浏览器 JavaScript。资料导入、API 和界面均接受无标题、单一名称或部分译名，当前语言无人工标题时用原文件名；现有五张名称及根 content.js 试改保留。
 
 验证：Python 3.12.14 本地八项测试通过，包含模拟 boto3 Query/旧资料兼容、53 条无标题资料分页、输入/错误/访问边界、五张原 JPG 字节/哈希等；另通过资料生成器可选标题检查。浏览器已核对无标题、单一名称、仅中文标题在日中英与大图中的回退行为。真实 AWS SDK/角色权限仍未调用验证，云端仍是本人先前的 Node.js 配置。新包在 .local/photo-app/deploy-20261025-210328-778/photo-api.zip，部署脚本和说明已改为 Python；不重新导入五条云端资料、不自动改运行时/角色/接口。

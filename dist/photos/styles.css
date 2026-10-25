@@ -30,8 +30,7 @@ h2 { font-size:19px; font-weight:550; }
 .photo-card { min-width:0; }
 .preview-button { display:block; border:0; padding:0; width:100%; background:#1d2428; border-radius:0; }
 .preview-button img { display:block; width:100%; height:260px; object-fit:contain; }
-.photo-card h3 { font-size:16px; font-weight:550; margin:16px 0 7px; overflow-wrap:anywhere; }
-.file-info { color:var(--muted); font-size:12px; margin:0 0 14px; }
+.file-info { color:var(--muted); font-size:12px; margin:12px 0 14px; }
 .download { display:inline-block; font-size:13px; padding:10px 0 7px; text-decoration:none; border-bottom:1px solid var(--line); }
 .pagination { display:flex; align-items:center; justify-content:center; gap:20px; margin-top:42px; }
 #page-number { font-size:13px; }
