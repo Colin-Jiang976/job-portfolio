@@ -1,0 +1,11 @@
+{
+  "albumId": "main",
+  "tableName": "cj-photo-catalog",
+  "photos": [
+    { "id": "fuji-lake", "filename": "IMG_8655.JPG", "previewKey": "assets/photos/IMG_8655.webp", "captionKey": "photoLake", "order": 1 },
+    { "id": "birds", "filename": "IMG_4622.JPG", "previewKey": "assets/photos/IMG_4622.webp", "captionKey": "photoBirds", "order": 2 },
+    { "id": "city-night", "filename": "IMG_4843.JPG", "previewKey": "assets/photos/IMG_4843.webp", "captionKey": "photoNight", "order": 3 },
+    { "id": "snow-mountain", "filename": "IMG_6514.JPG", "previewKey": "assets/photos/IMG_6514.webp", "captionKey": "photoMountain", "order": 4 },
+    { "id": "spring-train", "filename": "IMG_4515.JPG", "previewKey": "assets/photos/IMG_4515.webp", "captionKey": "photoSpring", "order": 5 }
+  ]
+}

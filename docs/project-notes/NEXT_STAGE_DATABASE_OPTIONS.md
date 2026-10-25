@@ -4,6 +4,8 @@
 
 ## 本人最新决定
 
+最新实际进展：首版四项建议已接受，本地版与 Lambda 代码已准备，七项测试与浏览器验证通过；部署说明见 job-portfolio/docs/照片应用第一版.md。GitHub 私有基线已推送。下一步由本人体验“读资料 → 显示预览 → 下载原 JPG”，再部署 DynamoDB；不重新询问首版范围，不把本地模拟当作云验收。
+
 已选型：本人明确选择 DynamoDB；常规 RDS/Aurora 不进入首版实现。接下来集中决定下载形式、上传维护、分页浏览范围与预算，建议及已确认边界见 job-portfolio/docs/PHOTO_APP_PLAN.md。本人另要求恰当节点放到 GitHub，计划在首版范围确定后、动态开发前准备基线，未创建远程或推送。下文保留方案比较，不再将 DynamoDB 记成仅助手建议。
 
 后续偏好：本人不喜欢 SQL，倾向不采用常规 RDS，不希望以关系型运维为学习重点；Aurora Serverless 按需费用正在比较。PHOTO_APP_FEASIBILITY.md 已补 Aurora v2 东京计算单价、0 ACU 暂停条件、唤醒等待和 SQL 属性。DynamoDB 为助手优先建议，尚未得到本人最终选择，不默认另开 SQL 练习。
