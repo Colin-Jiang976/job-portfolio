@@ -20,7 +20,7 @@ window.PORTFOLIO_TEXT = {
     aboutTitle: "経歴と、今できること。",
     aboutCopy: "運用保守と、ローコードツールを使った開発学習・演習に取り組んでいます。業務用の monitoring tool を自作した経験を土台に、AWSを学びながらクラウド・インフラ領域への転職を目指しています。",
     roleLabel: "志望分野",
-    roleValue: "クラウド・インフラ関連職",
+    roleValue: "クラウド・インフラ設計・構築",
     placeLabel: "希望勤務地",
     placeValue: "札幌",
     interestLabel: "関心のある領域",
