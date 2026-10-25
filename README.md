@@ -38,6 +38,6 @@
 
 先阅读 [照片应用第一版](docs/照片应用第一版.md)，其中有本地启动方式、数据示例、文件分工、验证边界和本人控制台部署顺序。首版范围已确认，见 [首版计划](docs/PHOTO_APP_PLAN.md)；网页上传后台、批量 ZIP 和日志联动不在本版范围内。
 
-私有 GitHub 仓库为 [Colin-Jiang976/job-portfolio](https://github.com/Colin-Jiang976/job-portfolio)，静态站及邀请访问基线已推送。密钥、完整邀请、生成材料和原 JPG 不进入源码仓库；上级规划文档的阶段快照保存于 `docs/project-notes/`。
+私有 GitHub 仓库为 [Colin-Jiang976/job-portfolio](https://github.com/Colin-Jiang976/job-portfolio)，静态站/邀请基线与照片应用本地实现（`4b0cc37`）均已推送。密钥、完整邀请、生成材料和原 JPG 不进入源码仓库；上级规划文档的阶段快照保存于 `docs/project-notes/`。
 
 照片用于说明本人对自然与生活环境的偏好，并未声称是在札幌拍摄。履历书文件未提供，因此没有添加虚假的下载链接。

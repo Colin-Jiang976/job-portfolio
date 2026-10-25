@@ -4,6 +4,8 @@
 
 ## 最新目标
 
+GitHub 已完成本轮上传：私有仓库 https://github.com/Colin-Jiang976/job-portfolio ，基线 fb2e902、本地照片应用实现 4b0cc37 已推送 main，远程 SHA 已核对。下文“实现待推送/仍未提交”属于此前阶段记录。当前先打开本地五张样本应用体验，再由本人控制台创建 DynamoDB 表；AWS 动态资源尚未创建。
+
 最新实际进展：本人接受首版建议，已完成本地照片应用、只读 Lambda 代码和部署材料，尚未创建 DynamoDB/Lambda 或更新 AWS。五张原图下载字节/哈希、53 条合成分页、输入与错误处理程序测试共七项通过；浏览器三语/五图/大图/实际下载已核对。390px DOM 单列无横溢，手机截图工具失败，默认尺寸已恢复。说明见 job-portfolio/docs/照片应用第一版.md。本人已创建私有 GitHub 仓库 https://github.com/Colin-Jiang976/job-portfolio ，基线 fb2e902 已推送，后续实现提交看 Git 历史。原 roleValue 试改已随基线保存，字节未变，不再是未提交状态，不擅自定稿。密钥与完整邀请、原 JPG、生成材料继续忽略。下一步先本人体验本地，再本人控制台建表及后续 CloudShell 解释；理解状态未获新反馈。
 
 最新决定：本人明确选择 DynamoDB，首版不采用常规 RDS/Aurora。下一步集中确认下载形式、上传维护、分页浏览范围与预算；已确认下载原尺寸修图 JPG、保持三语与现有邀请保护。实施前计划在 job-portfolio/docs/PHOTO_APP_PLAN.md。本人要求合适时放到 GitHub，建议首版范围确定后、动态开发前建私有基线；本地有 4 个提交、无远程，上级接续文档尚不在仓库内，.openai/hosting.json 已被跟踪。仓库名/公开范围未确认，未提交或推送，密钥/邀请继续排除。本段优先于下文“尚未选型”的历史比较。
@@ -64,4 +66,4 @@ Codex 已执行 11 组本地浏览器场景及 8 项真实 CloudFront HEAD 测�
 
 ## 可复制的新对话开场
 
-请继续这个求职网站项目。先读取 AGENTS.md、JOB_SEARCH_SITE_BLUEPRINT.md、PROJECT_STATUS.md、NEXT_CHAT_HANDOFF.md 和 NEXT_STAGE_DATABASE_OPTIONS.md，并核对实际文件及未提交修改。现有 AWS 静态网站和 30 天邀请访问已完成本轮验收，不重复创建资源。暂缓小改动与缓存维护练习，下一阶段先比较静态资料、DynamoDB、关系型数据库及各自适合的功能，再和我确定具体用途及最小实现。不要直接创建数据库、上传后台或日志联动。保留本人文案试改，用中文解释；每轮可以合并几项相关操作，不把操作成功视为理解。
+请接续求职网站与 DynamoDB 照片下载应用。先读 AGENTS.md、JOB_SEARCH_SITE_BLUEPRINT.md、PROJECT_STATUS.md、本交接及 job-portfolio/docs/照片应用第一版.md，核对 Git 状态与实际代码。首版已确认单张原 JPG、控制台上传与批量资料、每页 24 张、约 USD 5/月预算目标。本地五张样本已验证，私有 GitHub 仓库已推送；AWS 静态站与 30 天邀请验收完成，动态数据库/接口尚未部署。先帮助我串起读取资料到下载原文件的流程，再由我操作控制台逐组部署，不自动创建重复资源或上传后台、ZIP、日志联动。保留本人文案字节内容，不把操作成功当作理解；用中文、一轮合并相关步骤，异常再拆解。
