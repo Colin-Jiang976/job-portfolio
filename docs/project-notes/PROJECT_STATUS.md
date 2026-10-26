@@ -1,8 +1,42 @@
 # 求职网站当前进度
 
-更新：2026-10-25（日本时间）。
+更新：2026-10-26（日本时间）。
 
 ## 当前阶段
+
+首版线上收尾验收（2026-10-26）：scripts/Test-PhotoDeployment.ps1 对现有网站只读验收 17 项全部通过。获邀 API 返回五条资料及 nextCursor=null；五张原 JPG 共 64,773,953 字节，实际下载大小/SHA256 均匹配准备时原图资料；API 与原图分别对无邀请/过期/篡改签名返回 403，相册页无邀请 403，Lambda URL 与 S3 原图匿名直连 403；线上 index.html/app.js 与本地新版 SHA256 一致。证据仅在忽略目录 .local/photo-app/verification-20261026-033121-561/results.json 与五个下载副本，不含凭证。没有重测全部静态/邀请基线，也不是百万规模测试。脚本随后仅整理变量名和屏蔽无意义任务返回输出，不改变检查逻辑；不为此重复下载。
+
+当前收尾边界：主功能与上述样本安全边界已验收；USD 5/月费用提醒仍待本人在 Billing 设置，日志保留/并发及 DynamoDB 按需上限尚未读取，不声称有硬性费用封顶。旧 main/ 副本未自动删除；通用缩略图自动化、条件搜索、上传后台与 Log Check 联动仍不在当前版本。README 和交接改为实际 Python/线上状态，准备按本阶段保存 GitHub，不逐项提交说明。
+
+首页入口上线反馈（2026-10-26）：本人确认首页已看到本次新增入口，可进入相册并下载；据本人反馈记录首页→相册→下载路径已通，不等同于全部原图哈希或授权边界已独立验收。正在解释静态 HTML/CSS/JS 由 S3 保存、CloudFront 分发、浏览器执行/渲染，以及定向失效清除边缘缓存以获取新版文件；Lambda Python 仍在 Lambda 执行，不能说 S3 执行网站程序。尚未确认 CloudFront 失效操作的实际状态，不据页面更新反推其一定完成。下一步收尾核对文件完整性与访问边界、费用提醒及有意义阶段 GitHub 保存；按本人反馈推进，不重复上传或刷新。
+
+首页相册入口已准备（2026-10-26）：本人希望减少细致手册、继续下一步。仅修改 dist/index.html 和 dist/app.js，在 AWS 项目及摄影区添加三语入口，传递 lang；原 dist/content.js SHA256 仍为 FD7E68B34AC74207007B5F4AF345482ADE8886FA4A5AD374EDC54B39CBFD874B。JS 语法及 diff 检查通过；真实本地浏览器核对两处 JA/EN/ZH 文字及路径，点击中文入口进入相册显示五卡片。下一步本人将这两个文件上传现有桶根目录，确认键为 index.html/app.js，再对原分配定向失效 /、/index.html、/app.js，核对线上入口。尚未上传、提交或推送；预览服务 127.0.0.1:8766（session 52560）保持可用，首页需 /index.html。新入口文字在 app.js 内独立补充，以保留原文案文件字节。
+
+下载修复反馈与自查方法（2026-10-26）：本人按路径修正后反馈“这次成功了”，据本人反馈记录下载恢复，未明确逐张五张均已测试，也未独立验证云端原 JPG 全部字节/哈希。问题在同桶对象键缺少 photo-originals/，没有证据表明传错桶；具体上传动作导致前缀缺失的过程未确定。已新增 job-portfolio/docs/照片下载排查.md，解释本地生成 originalKey→导入 DynamoDB→Lambda 返回 downloadUrl→按钮请求→CloudFront/S3 的路径来源，以及通过接口 downloadUrl 与 S3 键对照自查。旧 main/ 副本未自动清理。下一阶段为首页相册入口及剩余上线验收/费用提醒，按本人节奏继续。
+
+原图键不匹配已定位（2026-10-26）：本人确认 fuji-lake.jpg 的实际对象键是 main/fuji-lake.jpg，缺少接口下载路径要求的 photo-originals/ 前缀；这是已定位的路径不一致，修复后仍须重测，不能先记为下载成功。指导本人从 S3 main/ 内选中五张 JPG，复制到同桶 photo-originals/main/，保留原对象至下载验证完成，不改 API/DynamoDB 路径或放宽权限。上传说明补充按对象键验收，避免只凭本地文件夹名判断云端前缀。本人询问操作失误是否记录及面试是否逐项讲解；说明进度记录保存现象/证据/原因/修复/验证，展示只需架构、关键取舍和有代表性的排查，不逐个复述点击失误；当前修复结果仍待反馈。
+
+原图下载失败排查（2026-10-26）：本人反馈相册缩略图及下载按钮可见，全部下载失败；截图显示 Failed - Forbidden。Codex 获准对现有站点两次 Range GET 只读检查，使用本地现有邀请且未输出凭证：/assets/photos/IMG_8655.webp 返回 206，Content-Range 总长度 230990；/photo-originals/main/fuji-lake.jpg 返回 403，Server=AmazonS3，XML Code=AccessDenied。支持同份邀请可读预览、原图回源失败，不能仅凭 AccessDenied 区分对象缺失/路径错误与读权限/加密问题。下一步本人在 S3 核对 photo-originals/main/ 的五张 JPG 及 fuji-lake.jpg 的精确对象键，先不改权限、不重传或刷新缓存。本人还询问为何重复上传照片及新增照片的缩略图负担：需解释旧 WebP 为预览，新增 JPG 为原尺寸下载；当前 prepare_photos.py 只处理固定五张，尚无通用新增照片/自动生成预览流水线，不把未来自动化说成已实现。
+
+CloudFront API 获邀读取成功（2026-10-26）：本人使用本地原始邀请进入后，贴出 /api/photos 的完整 JSON：photos 五条（fuji-lake、birds、city-night、snow-mountain、spring-train），nextCursor=null，包含预览/下载路径及元资料；结合此前无痕 MissingKey，按本人响应证据确认获邀浏览器经 CloudFront→Lambda→DynamoDB 的小样本资料读取及缺少凭证拒绝，未独立读取本次 HTTP 状态码，不扩展为百万规模、原图下载或所有授权边界均已验收。已核对待上传 dist/photos 四文件与 deploy-20261025-210328-778/photo-originals/main 五个 JPG 存在且大小吻合返回资料，总 JPG 64,773,953 字节。下一步本人向现有私有桶根目录上传 photos/ 与 photo-originals/，先访问 /photos/index.html?lang=zh 验收，原首页入口之后再加；没有代为上传 AWS。
+
+API 行为创建反馈及邀请入口找回（2026-10-26）：本人确认 api/* 行为创建成功，列表位于默认行为上方；无痕窗口访问接口返回 MissingKey / Missing Key-Pair-Id query parameter or cookie value，按本人反馈记录缺少邀请凭证被拒，未独立读取 HTTP 状态码。正常窗口尚未测，不能据此确认 CloudFront→Lambda→DynamoDB 已贯通。已定位本地 invitation-20261025-052303-45c16599.txt，仅读取解析政策并输出非秘密到期时间：日本时间 2026-11-24 14:23:03，资源范围为现有分配域名 /*；未在聊天输出完整凭证、未重签。已请求在 Codex 打开本地邀请文件（工具返回 queued），指导本人复制完整链接进入并保存原始邀请书签，再在同一浏览器测试 /api/photos。理解讲解：行为按列表首个匹配处理，默认固定最后；CloudFront 向对应源站取内容，浏览器地址不因这条路由规则变成 Lambda 地址。
+
+Lambda 源站重建反馈（2026-10-26）：本人反馈本轮配置“这次好了”，按反馈记录原分配内 cj-photo-api 源站已重建并关联现有 cj-photo-api-oac，非独立读取云端证据；config/photo-api.json 已更新实际名称。API 行为尚未创建，原 S3 源站与网站保留。本人询问源站/Origin 的含义及为何此次设置 OAC；先解释来源角色、S3 已有 OAC 验收记录，以及 OAC 签名与源站端授权的区别，不据配置成功认定理解。下一配置环节为受邀请保护的 api/* 行为。
+
+旧 Lambda 源站删除反馈（2026-10-26）：本人确认已删除旧长名称源站。澄清推进节奏为每轮一个完整配置环节，不必逐个按钮等待；本轮指导在原分配内重建 cj-photo-api，继续使用原函数 URL 与 cj-photo-api-oac，API 行为仍留下一轮。新源站保存与 OAC 关联尚未确认。config/photo-api.json 保留旧名称作记录，并标注待重建。
+
+源站改名决定（2026-10-26）：本人再次明确编辑页不能改名，提出删掉该 Lambda 源站记录后按 cj-photo-api 重建。另可通过 API/CLI 更新分配配置中的源站 ID 及引用，但当前继续由本人控制台操作。指导仅删除分配 E1EXJ282JJY07Q 内域名为 j3ijrhqpxnfvjlwtm3pxmias4q0rvkhm.lambda-url.ap-northeast-1.on.aws 的 Lambda 源站记录；保留 S3 源站、分配、函数、OAC和现有授权。若有关联行为提示，停止核对；API 行为按此前反馈尚未创建。删除及重建均未收到结果，config/photo-api.json 仍记录旧名称，不能提前写成已改名。下一步按实际创建界面重建并关联原 Lambda OAC。
+
+实际源站名与界面顺序反馈（2026-10-25）：本人已找到源站名称位置，反馈名称自动为 j3ijrhqpxnfvjlwtm3pxmias4q0rvkhm.lambda-url.ap-northeast-1.on.aws，界面无法修改；已更新 config/photo-api.json 的实际 originName，不为短名重建源站。API 行为仍按上一轮未做记录。本人指出指导字段顺序不符控制台，后续按实际界面逐项推进。需纠正 OAC 方向：CloudFront 向 Lambda 请求，OAC 配置签名，Lambda 资源策略允许指定分配；不是 Lambda 主动连 CloudFront。下一步只核对现有 Lambda 源站选中的 OAC，不继续行为设置。
+
+CloudFront 推进节奏调整（2026-10-25）：本人反馈上一轮跨度太大，尚不清楚分配、源站与 OAC 的概念；API 行为步骤明确全部未做，源站下拉没有 cj-photo-api。不能假定 Lambda 源站已保存或按建议命名，也可能是自动生成名称；下一步仅让本人查看现有分配的 Origins 列表名称与域名，对照已有函数 URL，不新建重复源站/分配，不继续创建行为。先用实际请求路径解释概念，再按反馈逐项推进。
+
+函数 URL 核对反馈（2026-10-25）：本人贴出 get-function-url-config 输出，AuthType=AWS_IAM，FunctionUrl=https://j3ijrhqpxnfvjlwtm3pxmias4q0rvkhm.lambda-url.ap-northeast-1.on.aws/ 。已保存非秘密部署记录 config/photo-api.json；按本人此前反馈 Lambda OAC 和限定分配的调用授权已做，未独立读取其实际策略。下一步本人把该源站/OAC及受邀请保护的 api/* 行为加入现有分配，禁止跳过查看器限制。新增 docs/常用命令备忘.md，四条只读查询，区分会写入/改权限的脚本；不索取凭据或完整邀请。
+
+Python Lambda 云端读取成功反馈（2026-10-25）：本人在调整基本设置后反馈 Response statusCode=200、Duration=80.99ms。按本人证据记录程序已成功返回，长文本为照片资料响应；未独立核对具体照片条数，也不因后续成功反推首次超时的唯一原因。下一组由本人创建 AWS_IAM 函数 URL、Lambda 类型 OAC，并执行限定既有分配的两项调用授权，再接入 CloudFront api/*。已有网站、邀请及资源继续复用；匿名 URL 与 API 邀请保护尚待真实测试。
+
+首次云端测试超时反馈（2026-10-25）：本人测试 photo-list 返回 Sandbox.Timedout，日志 Duration=3000ms、Memory Size=128MB、Max Memory Used=62MB、Init Duration=91.74ms，证明本次达到默认 3 秒执行上限，不是已确认的测试 JSON 错误或内存溢出。部署步骤漏说明基本执行设置；先由本人把原函数改为 256MB/10 秒再测，不改事件 JSON、不重建资源。首次 boto3 加载/低 CPU 是待验证原因，网络/VPC及真实读表权限尚未因此确认。若仍超时，再收最新 Duration 与 VPC 状态检查，不先重写代码或继续配置 CloudFront。
 
 恢复部署与隐藏名称（2026-10-25）：本人决定今天先完成首版，代码理解可完成后再进行；条件搜索明确留到下一版。首版相册已改为统一不显示照片标题/原文件名，大图显示通用预览标题；名称资料保留且仅供辅助阅读，缺省辅助标签用照片编号。JS/三语键检查通过，浏览器核对五张卡片、五个下载入口、可见标题和文件名均为零。后端/数据库结构不变，Python ZIP 继续使用 deploy-20261025-210328-778/photo-api.zip。
 

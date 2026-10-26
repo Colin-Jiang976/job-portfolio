@@ -1,6 +1,12 @@
 // 页面文字从 content.js 读取；照片路径与顺序从 photos.js 读取。
 (() => {
   const translations = window.PORTFOLIO_TEXT;
+  // 新相册入口单独补充三语，保留本人原 content.js 文案的字节内容。
+  const photoAppLabels = {
+    ja: '写真を閲覧・ダウンロード',
+    zh: '浏览与下载照片',
+    en: 'Browse & download photos'
+  };
   const languageButtons = document.querySelectorAll('[data-lang]');
   const menuButton = document.querySelector('.menu-toggle');
   const mobileNav = document.querySelector('#mobile-nav');
@@ -53,6 +59,10 @@
     });
     languageButtons.forEach(button => {
       button.setAttribute('aria-pressed', String(button.dataset.lang === language));
+    });
+    document.querySelectorAll('[data-photo-app-link]').forEach(link => {
+      link.href = `photos/index.html?lang=${language}`;
+      link.querySelector('[data-photo-app-label]').textContent = photoAppLabels[language];
     });
     // 某些浏览器或本地文件模式会禁用存储；禁用时仍可正常切换。
     try { localStorage.setItem('cloud-nature-language', language); } catch {}

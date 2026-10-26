@@ -1,0 +1,12 @@
+{
+  "region": "ap-northeast-1",
+  "functionName": "cj-photo-api",
+  "functionUrl": "https://j3ijrhqpxnfvjlwtm3pxmias4q0rvkhm.lambda-url.ap-northeast-1.on.aws/",
+  "authType": "AWS_IAM",
+  "originName": "cj-photo-api",
+  "originStatus": "configured_user_reported",
+  "oacName": "cj-photo-api-oac",
+  "behaviorPath": "api/*",
+  "behaviorStatus": "authorized_five_photos_and_missing_key_user_verified",
+  "note": "部署记录，不是前端直连地址；网页使用同源 /api/photos。"
+}
