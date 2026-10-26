@@ -4,13 +4,15 @@
 
 ## 当前接续点
 
-首版照片下载 App 已上线：现有私有 S3/CloudFront 加 cj-photo-api Python 3.12 Lambda、AWS_IAM 函数 URL、Lambda OAC、受同一邀请保护的 api/* 行为和 cj-photo-catalog DynamoDB。源站名现为 cj-photo-api；本人反馈首页入口→相册→下载成功。接口/页面/五张原图已上传，不要重复创建、上传或改名。实际配置在 config/photo-api.json。
+照片下载首版本轮上线与收尾已完成（2026-10-26）。本人反馈首页入口→三语相册→原尺寸 JPG 下载正常；现有私有 S3/CloudFront、Python 3.12 Lambda、AWS_IAM 函数 URL、Lambda OAC、受邀请保护的 api/* 行为与 DynamoDB 均已接通。源站名 cj-photo-api；实际配置见 job-portfolio/config/photo-api.json。不要重建资源、重复上传或重做已完成配置。
 
-2026-10-26 独立线上 17 项通过：五条资料、五张 JPG 共 64,773,953 字节及 SHA256、接口/原图无邀请/过期/篡改拒绝、相册页无邀请拒绝、Lambda/S3 匿名直连拒绝、首页两文件与本地哈希一致。本地证据 .local/photo-app/verification-20261026-033121-561/（忽略，不提交）。脚本 scripts/Test-PhotoDeployment.ps1 可复用；已通过的不重复测，不当作百万规模证明。
+真实线上17项验收全部通过：五条资料及分页结束、五张 JPG 共64,773,953字节及SHA256、接口/原图无邀请/过期/篡改拒绝、相册页无邀请拒绝、Lambda/S3匿名直连拒绝、首页两文件哈希一致。证据在忽略目录 .local/photo-app/verification-20261026-033121-561/，脚本 scripts/Test-PhotoDeployment.ps1；不重复整套验收，不当作百万图片性能证明。
 
-当前进入收尾：下一项本人在 Billing 设置 USD 5/月费用提醒；尚无预算完成反馈。日志保留/资源上限待核对，费用提醒不是硬停止。旧 main/ 副本暂留，通用缩略图自动化、搜索、上传后台和 Log Check 联动暂不加。原尺寸 JPG 下载采用 photo-originals/main/{id}.jpg；此前缺前缀导致 Forbidden 已修复。
+成本收尾按本人反馈完成：创建USD5/月预算，Email verification=Verified；Lambda日志保留7天；东京账号Lambda总并发10/未预留10，保持共享；DynamoDB ACTIVE/PAY_PER_REQUEST，MaxReadRequestUnits=10、MaxWriteRequestUnits=5，设置后相册正常。未制造费用测试告警投递。吞吐上限是尽力限流目标，突发可短暂超出；它和预算提醒均不是总费用硬封顶，也不限制S3/CloudFront原图流量。
 
-保留个人 content.js 原字节（SHA256 FD7E68B34AC74207007B5F4AF345482ADE8886FA4A5AD374EDC54B39CBFD874B）。首页入口仅改 index.html/app.js，三语和传递语言已验；首页旧介绍/页脚未顺手改写。私有 GitHub 保留原历史，按阶段保存；最新提交以 Git 记录为准。本人要求减少细致手册，保持简短；每轮一个完整配置环节，不按单个按钮拆分，不把成功认定为理解。
+用户希望其他问题以后处理。下一轮按本人提出的目标继续：代码消化、新照片批量准备/预览自动化、分类搜索等尚未实现；不要默认扩展上传后台或Log Check联动。旧 main/ 副本尚未清理，不自动删除。此前Forbidden来自同桶对象键缺少photo-originals/，已修复。本人不需要持续新增细致手册，中文简短解释，每轮一个完整配置环节，不把操作成功当作理解。
+
+保留个人 dist/content.js 原字节（SHA256 FD7E68B34AC74207007B5F4AF345482ADE8886FA4A5AD374EDC54B39CBFD874B）。首页入口仅改index.html/app.js，旧介绍/页脚未顺手改写。私有GitHub保留原历史，代码上线里程碑589fec8，费用收尾记录按阶段保存，最新以Git记录为准。密钥、完整邀请、原JPG与生成证据仍排除；根目录规划文件是本地权威来源，docs/project-notes是提交时快照。
 
 ## 旧阶段记录（以下状态以当前接续点为准）
 
