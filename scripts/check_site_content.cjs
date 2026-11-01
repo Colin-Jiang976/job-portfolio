@@ -41,6 +41,11 @@ for (const file of files(root).filter(file => file.endsWith('.js'))) {
     } else if (relative === 'documents.js') {
       const context = { window: {} };
       script.runInNewContext(context, { timeout: 1000 });
+      const privateConfig = path.join(root, 'documents.private.js');
+      if (fs.existsSync(privateConfig)) {
+        new vm.Script(fs.readFileSync(privateConfig, 'utf8'), {filename:'documents.private.js'})
+          .runInNewContext(context, {timeout:1000});
+      }
       const documents = context.window.PORTFOLIO_DOCUMENTS;
       if (!documents || Object.keys(documents).sort().join() !== 'career,resume') throw new Error('材料配置必须含resume/career');
       for (const [slot, file] of Object.entries(documents)) {

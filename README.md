@@ -8,9 +8,9 @@
 - 私有S3和CloudFront提供页面、预览及原JPG；Python Lambda从DynamoDB Query读取目录，JPG不经过Lambda转发。
 - 本机维护入口支持准备新照片、看图批量选地点、本人确认后发布；无公众上传后台。
 - 照片API日志经本地整理，由本人按需投递已有Cloud Log Check。正常报告来自AWS，受控故障及格式示例来自本地；不是实时采集。
-- 工具示例/证据、联系方式与可配置履历下载已上线；正式文件未提供，当前没有假下载按钮。
+- 工具示例/证据、个人简介与联系方式已上线，正式履歴書和職務経歴書可由获邀访客下载。
 - 本轮静态更新已有针对性线上核对和本人真实手机正常反馈。未验证百万图片导入或大规模负载。
-- 源码已删除首页打印按钮，该小修尚未发布网站。个人资料与正式履历后补。
+- 首页打印按钮已撤下。个人资料和正式PDF已发布并核对，新PDF无邀请/过期邀请及S3匿名直连均拒绝访问。
 
 ## 代码入口
 
@@ -33,8 +33,11 @@
 先在本机复制不含个人值的配置示例：
 
     Copy-Item dist/contact.example.js dist/contact.private.js
+    Copy-Item dist/documents.js dist/documents.private.js
 
 contact.private.js由.gitignore排除。需要显示联系方式时，仅在该本地文件填写；保持空值则不显示联系方式。该文件供受邀请保护的网站部署使用，不提交到源码仓库。
+
+documents.js为公开的空白默认配置。个人履历PDF放在dist/documents/，路径填写在documents.private.js，两者由.gitignore排除；空配置不显示下载按钮。发布检查会读取部署配置，并拒绝缺失文件或不安全路径。这样公开克隆可以用空白配置运行，实际受邀网站可以提供正式材料。
 
 运行：
 
@@ -58,7 +61,7 @@ contact.private.js由.gitignore排除。需要显示联系方式时，仅在该�
 
 ## 相关仓库
 
-- [Cloud Log Check](https://github.com/Colin-Jiang976/cloud-log-check)：检查器和Terraform。
+- Cloud Log Check沿用既有独立检查项目。本仓库包含照片日志整理、交接校验和报告展示，未包含其完整检查Lambda与Terraform；不把独立仓库公开作为本站交付条件。
 - [运维辅助工具](https://github.com/Colin-Jiang976/my-work-tools)：原有版本、审阅版与虚构演示。
 - [Java / LeetCode](https://github.com/Colin-Jiang976/leetcode-java)：独立学习记录。
 

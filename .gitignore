@@ -11,3 +11,5 @@ node_modules/
 __pycache__/
 *.py[cod]
 dist/contact.private.js
+dist/documents.private.js
+dist/documents/

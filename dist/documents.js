@@ -1,3 +1,3 @@
-// 正式材料后补。null 不显示按钮；文件须置于 dist/documents/。
-// 例如 resume: 'documents/resume-ja.pdf'。发布检查拒绝缺失或不安全的路径。
+// 公开源码的空白默认配置；null 不显示下载按钮。
+// 本地部署用 documents.private.js 覆盖；个人PDF放在 dist/documents/，不提交到公开GitHub。
 window.PORTFOLIO_DOCUMENTS = { resume: null, career: null };

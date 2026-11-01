@@ -25,6 +25,16 @@ check('external-url', {resume:'https://example.invalid/resume.pdf',career:null},
 check('path-traversal', {resume:'documents/../example.pdf',career:null}, false);
 check('wrong-file-header', {resume:'documents/example.pdf',career:null}, false, {'documents/example.pdf':'Not a PDF'});
 check('unknown-slot', {resume:null,career:null,other:null}, false);
+check('private-provided-file', {resume:null,career:null}, true, {
+  'documents.private.js':'window.PORTFOLIO_DOCUMENTS = {resume:"documents/example.pdf",career:null};',
+  'documents/example.pdf':'%PDF-1.4\n%%EOF\n'
+});
+check('private-missing-file', {resume:null,career:null}, false, {
+  'documents.private.js':'window.PORTFOLIO_DOCUMENTS = {resume:"documents/missing.pdf",career:null};'
+});
+check('private-unsafe-path', {resume:null,career:null}, false, {
+  'documents.private.js':'window.PORTFOLIO_DOCUMENTS = {resume:"https://example.invalid/file.pdf",career:null};'
+});
 const context = {window:{}};
 new vm.Script(fs.readFileSync(path.join(root,'dist/content.js'),'utf8')).runInNewContext(context);
 const expectedRole = {ja:'クラウド・インフラ設計・構築',zh:'云与基础设施相关岗位',en:'Cloud & infrastructure roles'};
