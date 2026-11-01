@@ -3,6 +3,9 @@
 body { margin:0; }
 a { color:inherit; text-underline-offset:4px; }
 button { font:inherit; color:inherit; cursor:pointer; background:transparent; border:1px solid var(--line); border-radius:4px; padding:10px 16px; }
+select { font:inherit; color:inherit; background:var(--paper); border:1px solid var(--line); border-radius:4px; padding:10px; max-width:100%; }
+.location-filter { display:flex; align-items:center; gap:12px; margin:12px 0 18px; font-size:14px; }
+.location-filter select { min-width:160px; }
 button:disabled { opacity:.4; cursor:default; }
 button:hover:not(:disabled), .download:hover { border-color:var(--ink); }
 :focus-visible { outline:3px solid #526d9a; outline-offset:4px; }

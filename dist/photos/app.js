@@ -6,6 +6,17 @@
   const dialog = document.querySelector('#preview-dialog');
   const previous = document.querySelector('#previous');
   const next = document.querySelector('#next');
+  const locationFilter = document.querySelector('#location-filter');
+  const locationPattern = /^(unassigned|loc-[a-f0-9]{24})$/;
+  // 只翻译显示文字；API原始label、地点ID和查询参数保持不变。
+  const locationKeys = Object.freeze({
+    '富士山': 'locationFuji', '伊豆': 'locationIzu', '东京': 'locationTokyo',
+    '箱根': 'locationHakone', '内蒙古': 'locationInnerMongolia', '逗子': 'locationZushi',
+    '横滨': 'locationYokohama', '小田原': 'locationOdawara', '热海': 'locationAtami'
+  });
+  let selectedLocation = new URLSearchParams(location.search).get('location') || '';
+  if (selectedLocation && !locationPattern.test(selectedLocation)) selectedLocation = '';
+  let locations = [], locationsReady = false, pendingPage = { cursor: null, index: 0 };
   let language = 'ja', photos = [], cursors = [null], pageIndex = 0, nextCursor = null;
   let statusKey = 'loading', loading = false, selectedPhoto = null, activeRequest;
   try { language = localStorage.getItem('cloud-nature-language') || 'ja'; } catch {}
@@ -33,6 +44,21 @@
     document.title = texts[language].pageTitle;
     document.querySelectorAll('[data-i18n]').forEach(node => { node.textContent = text(node.dataset.i18n); });
     document.querySelectorAll('[data-lang]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lang === language)));
+    document.querySelectorAll('.brand,#back').forEach(link => {
+      link.href = '../index.html?lang=' + language + (link.id === 'back' ? '#sapporo' : '');
+    });
+    try {
+      const url = new URL(location.href); url.searchParams.set('lang', language); history.replaceState(null, '', url);
+    } catch {}
+    const options = [{ id: '', label: text('allLocations') }, ...locations.map(row => ({
+      id: row.id, label: Object.hasOwn(locationKeys, row.label) ? text(locationKeys[row.label]) : row.label
+    })), { id: 'unassigned', label: text('unassigned') }];
+    if (selectedLocation && !options.some(option => option.id === selectedLocation)) options.push({ id: selectedLocation, label: text('unknownLocation') });
+    locationFilter.replaceChildren(...options.map(option => {
+      const node = document.createElement('option'); node.value = option.id; node.textContent = option.label; return node;
+    }));
+    locationFilter.value = selectedLocation;
+    locationFilter.disabled = !locationsReady;
     gallery.replaceChildren();
     photos.forEach(photo => {
       const card = document.createElement('article'); card.className = 'photo-card';
@@ -73,20 +99,31 @@
   async function loadPage(cursor, targetIndex) {
     activeRequest?.abort(); activeRequest = new AbortController();
     const request = activeRequest;
+    const requestedLocation = selectedLocation;
+    pendingPage = { cursor, index: targetIndex };
     loading = true; retry.hidden = true; updateStatus('loading'); render();
     const timeout = setTimeout(() => request.abort(), 15000);
     try {
-      const response = await fetch('/api/photos' + (cursor ? '?cursor=' + encodeURIComponent(cursor) : ''), { signal: request.signal, credentials: 'same-origin', cache: 'no-store' });
+      const parameters = new URLSearchParams();
+      if (cursor) parameters.set('cursor', cursor);
+      if (requestedLocation) parameters.set('location', requestedLocation);
+      const response = await fetch('/api/photos' + (parameters.size ? '?' + parameters : ''), { signal: request.signal, credentials: 'same-origin', cache: 'no-store' });
+      if (request !== activeRequest) return;
       if (response.status === 403 || response.status === 401) throw new Error('invitationRequired');
       if (response.status === 400) throw new Error('invalidCursor');
       if (!response.ok) throw new Error('unavailable');
       const data = await response.json();
+      if (request !== activeRequest) return;
       if (!Array.isArray(data.photos) || data.photos.length > 24 || !data.photos.every(validatePhoto) ||
-          !(data.nextCursor === null || typeof data.nextCursor === 'string')) throw new Error('unavailable');
+          !(data.nextCursor === null || typeof data.nextCursor === 'string') ||
+          !Array.isArray(data.locations) || data.locations.length > 200 || data.selectedLocation !== requestedLocation ||
+          !data.locations.every(row => row && /^loc-[a-f0-9]{24}$/.test(row.id) && typeof row.label === 'string' && row.label.length <= 120) ||
+          new Set(data.locations.map(row => row.id)).size !== data.locations.length) throw new Error('unavailable');
       photos = data.photos; nextCursor = data.nextCursor; pageIndex = targetIndex;
+      locations = data.locations; locationsReady = true;
       cursors[targetIndex] = cursor; cursors.length = targetIndex + 1;
       document.querySelector('#local-notice').hidden = data.mode !== 'local';
-      updateStatus(photos.length ? '' : 'empty');
+      updateStatus(photos.length ? '' : requestedLocation ? 'emptyLocation' : 'empty');
     } catch (error) {
       if (request !== activeRequest) return;
       updateStatus(['invitationRequired', 'invalidCursor'].includes(error.message) ? error.message : 'unavailable');
@@ -104,7 +141,16 @@
   }));
   previous.addEventListener('click', () => loadPage(cursors[pageIndex - 1], pageIndex - 1));
   next.addEventListener('click', () => loadPage(nextCursor, pageIndex + 1));
-  retry.addEventListener('click', () => statusKey === 'invalidCursor' ? loadPage(null, 0) : loadPage(cursors[pageIndex], pageIndex));
+  retry.addEventListener('click', () => statusKey === 'invalidCursor' ? loadPage(null, 0) : loadPage(pendingPage.cursor, pendingPage.index));
+  locationFilter.addEventListener('change', () => {
+    selectedLocation = locationFilter.value;
+    dialog.close(); selectedPhoto = null;
+    photos = []; cursors = [null]; pageIndex = 0; nextCursor = null;
+    const url = new URL(location.href);
+    if (selectedLocation) url.searchParams.set('location', selectedLocation); else url.searchParams.delete('location');
+    history.replaceState(null, '', url);
+    loadPage(null, 0);
+  });
   document.querySelector('#close-preview').addEventListener('click', () => dialog.close());
   document.querySelector('#preview-download').addEventListener('click', () => updateStatus('downloadStarted'));
   dialog.addEventListener('close', () => { selectedPhoto = null; });

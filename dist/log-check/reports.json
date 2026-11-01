@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-10-26T11:52:54.128216+00:00",
+  "reports": [
+    {
+      "id": "20261026T114020Z-2952597213c2",
+      "source": "cloud-api",
+      "scenario": "normal",
+      "engine": "aws",
+      "checked_at": "2026-10-26T11:48:38.667958+00:00",
+      "status": "OK",
+      "counts": {
+        "INFO": 1,
+        "WARN": 0,
+        "ERROR": 0
+      },
+      "total_records": 1,
+      "reason_category": null,
+      "notification": "not-applicable"
+    },
+    {
+      "id": "20261026T102151Z-031588650a19",
+      "source": "local-controlled",
+      "scenario": "read-failure",
+      "engine": "local",
+      "checked_at": "2026-10-26T10:21:52.054779+00:00",
+      "status": "ALERT",
+      "counts": {
+        "INFO": 0,
+        "WARN": 0,
+        "ERROR": 1
+      },
+      "total_records": 1,
+      "reason_category": null,
+      "notification": "not-applicable"
+    },
+    {
+      "id": "20261026T102151Z-c6b1bc2704dc",
+      "source": "format-test",
+      "scenario": "invalid-format",
+      "engine": "local",
+      "checked_at": "2026-10-26T10:21:52.112889+00:00",
+      "status": "INVALID",
+      "counts": null,
+      "total_records": null,
+      "reason_category": "fields",
+      "notification": "not-applicable"
+    }
+  ]
+}

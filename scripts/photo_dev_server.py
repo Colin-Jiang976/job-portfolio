@@ -12,16 +12,20 @@ from urllib.parse import quote, unquote, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend/photo-api"))
 from lambda_function import handle_request
+from photo_locations import location_record, registry
 
 
-def create_server(catalog, source_directory, port=8766, scenario="normal"):
+def create_server(catalog, source_directory, port=8766, scenario="normal", asset_root=None):
     # 本地小样本的替身；生产环境由 Lambda Query 分页，不加载全表。
     ordered = sorted(catalog, key=lambda item: item["SK"])
+    query_rows = sorted(ordered + [location_record(item) for item in ordered], key=lambda item: item["SK"])
     source_directory = Path(source_directory).resolve()
     dist = (ROOT / "dist").resolve()
+    asset_root = Path(asset_root).resolve() if asset_root else None
 
-    def read_page(*, partition, after, limit):
-        matching = [item for item in ordered if item["PK"] == partition and (not after or item["SK"] > after["SK"])]
+    def read_page(*, partition, after, limit, prefix="PHOTO#"):
+        matching = [item for item in query_rows if item["PK"] == partition and item["SK"].startswith(prefix)
+                    and (not after or item["SK"] > after["SK"])]
         items = matching[:limit]
         last = items[-1] if len(matching) > limit else None
         return {"items": items, "lastKey": {"PK": last["PK"], "SK": last["SK"]} if last else None}
@@ -55,7 +59,8 @@ def create_server(catalog, source_directory, port=8766, scenario="normal"):
                 if scenario in ("expired", "unavailable"):
                     return self.reply(403 if scenario == "expired" else 503, "Local test scenario")
                 result = handle_request({"rawPath": pathname, "rawQueryString": url.query,
-                                         "requestContext": {"http": {"method": self.command}}}, read_page)
+                                         "requestContext": {"http": {"method": self.command}}}, read_page,
+                                        read_locations=lambda _: registry(p.get("location", "") for p in ordered))
                 if result["statusCode"] == 200 and result["body"]:
                     data = json.loads(result["body"])
                     data["mode"] = "local"
@@ -70,15 +75,17 @@ def create_server(catalog, source_directory, port=8766, scenario="normal"):
                 original = next((item for item in ordered if "/" + item["originalKey"] == pathname), None)
                 if not original or Path(original["filename"]).name != original["filename"]:
                     return self.reply(404, "Photo not found")
-                filename = (source_directory / original["filename"]).resolve()
-                if not filename.is_relative_to(source_directory):
+                original_root = asset_root or source_directory
+                filename = (original_root / (original["originalKey"] if asset_root else original["filename"])).resolve()
+                if not filename.is_relative_to(original_root):
                     return self.reply(404, "Photo not found")
             else:
                 relative = "photos/index.html" if pathname == "/" else pathname.lstrip("/")
                 if pathname.endswith("/") and pathname != "/":
                     relative += "index.html"
-                filename = (dist / relative).resolve()
-                if not filename.is_relative_to(dist):
+                static_root = asset_root if asset_root and pathname.startswith("/assets/photos/") else dist
+                filename = (static_root / relative).resolve()
+                if not filename.is_relative_to(static_root):
                     return self.reply(404, "Not found")
             try:
                 if not filename.is_file():
@@ -135,9 +142,9 @@ if __name__ == "__main__":
         parser.error("预览端口须为 1024–65535。")
     with args.catalog.open(encoding="utf-8-sig") as file:
         catalog = json.load(file)
-    with (ROOT / ".local/photo-app/source.json").open(encoding="utf-8-sig") as file:
+    with (args.catalog.parent / "source.json").open(encoding="utf-8-sig") as file:
         source = json.load(file)
-    server = create_server(catalog, source["directory"], args.port, args.scenario)
+    server = create_server(catalog, source["directory"], args.port, args.scenario, source.get("assetRoot"))
     print(f"Python 本地预览：http://127.0.0.1:{args.port}/photos/index.html?lang=zh（未连接 AWS）", flush=True)
     try:
         server.serve_forever()

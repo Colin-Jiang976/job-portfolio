@@ -1,0 +1,63 @@
+/* 架构图使用页面原生文字；无需外部图表库或第三方请求。 */
+.architecture{margin:0 0 64px;padding:32px;background:#eef1ed;border:1px solid var(--line);scroll-margin-top:28px}
+.architecture-header{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:14px}
+.architecture h3{font-size:27px;line-height:1.5;margin:8px 0 12px;white-space:normal}
+.architecture-kicker{font-size:10px;letter-spacing:.13em;color:var(--accent);font-weight:700}
+.architecture-intro{font-size:13px;line-height:1.9;color:var(--muted);max-width:740px}
+.architecture-status{flex:none;font-size:10px;padding:7px 10px;border:1px solid #b4c5b6;background:#f7faf5;color:#36563c}
+.architecture-controls{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 16px}
+.architecture-controls button{background:transparent;border:1px solid #a6b5aa;color:var(--ink);padding:10px 14px;border-radius:3px;font-size:12px;min-height:42px}
+.architecture-controls button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.architecture-controls button:hover{border-color:var(--accent)}
+.architecture-invite{padding:12px 15px;background:#f9faf7;font-size:12px;line-height:1.9;border-left:3px solid #708d75}
+.architecture-map{display:grid;grid-template-columns:130px 30px 170px 42px minmax(0,1fr);align-items:center;margin:24px 0 16px;min-width:0}
+.architecture-node{min-width:0;padding:18px 15px;border:1px solid #acb9b1;background:#fff;border-radius:5px;box-shadow:0 3px 8px #27392e04}
+.architecture-node small{display:block;font-size:10px;line-height:1.7;color:var(--muted);overflow-wrap:anywhere}
+.architecture-node strong{display:block;font-size:16px;font-weight:600;line-height:1.5;margin:6px 0}
+.architecture-node p{font-size:12px;line-height:1.8;white-space:pre-line}
+.architecture-node .architecture-resource{margin-top:10px;font:10px/1.6 ui-monospace,Consolas,monospace;overflow-wrap:anywhere;color:#5e6a62}
+.architecture-gateway{border-top:3px solid #9b4b30}
+.architecture-storage{border-top:3px solid #5e805e}
+.architecture-compute{border-top:3px solid #b17838}
+.architecture-database{border-top:3px solid #5a7896}
+.architecture-arrow{text-align:center;color:#617768;font-size:24px;line-height:1}
+.architecture-fork{height:100%;width:100%;overflow:visible}
+.architecture-fork path{fill:none;stroke:#718675;stroke-width:1.5;vector-effect:non-scaling-stroke}
+.architecture-routes{display:grid;grid-template-rows:1fr 1fr;gap:18px;min-width:0}
+.architecture-route{display:flex;flex-direction:column;justify-content:center;min-width:0;border:1px solid #d0d9ce;border-radius:6px;padding:13px;background:#f5f7f2;transition:opacity .15s}
+.architecture-route-label{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin:0 0 10px;font-size:12px;font-weight:600;line-height:1.6}
+.architecture-route-label code{font-size:10px;font-weight:400;color:var(--muted);overflow-wrap:anywhere}
+.architecture-api{display:grid;grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);align-items:center}
+.architecture-api .architecture-node{height:100%}
+.architecture-log-note{font-size:11px;line-height:1.8;color:var(--muted);margin-top:10px}
+.architecture-log-note::before{content:'↳ ';color:#718675}
+.architecture[data-view=page] [data-route=api],.architecture[data-view=download] [data-route=api],.architecture[data-view=catalog] [data-route=files]{opacity:.38}
+.architecture[data-view=page] [data-route=files],.architecture[data-view=download] [data-route=files],.architecture[data-view=catalog] [data-route=api]{border-color:#628268;background:#e8efe5}
+.architecture-legend{font-size:11px;line-height:1.8;color:var(--muted)}
+.architecture-explanation{margin:16px 0 0;padding:17px 18px;background:#fff;border-left:3px solid var(--accent);font-size:13px;line-height:2;min-height:84px}
+.architecture-evidence{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin:24px 0}
+.architecture-evidence>div{border-top:1px solid #bbc9bb;padding-top:14px}
+.architecture-evidence dt{font-size:12px;font-weight:600;line-height:1.7}
+.architecture-evidence dd{margin:8px 0 0;font-size:12px;line-height:1.9;color:var(--muted)}
+.architecture-independent{padding-top:22px;border-top:1px dashed #9cae9e}
+.architecture-independent-header{display:flex;align-items:baseline;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.architecture-independent h4{font-size:16px;font-weight:600;margin:0}
+.architecture-independent-header>span{font-size:11px;color:var(--accent);line-height:1.8}
+.architecture-independent>p{font-size:12px;line-height:1.9;color:var(--muted);margin:12px 0}
+.architecture-log-flow{display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr) 30px minmax(0,1fr);align-items:center;margin:16px 0}
+.architecture-log-flow .architecture-node{height:100%;padding:13px 15px;background:#f9faf7;box-shadow:none}
+.architecture-log-flow .architecture-node strong{font-size:13px}
+.architecture-log-flow .architecture-node p{font-size:11px}
+.architecture-technical{margin-top:22px;border-top:1px solid var(--line);padding-top:12px}
+.architecture-technical summary{cursor:pointer;font-size:12px;font-weight:600;line-height:1.9}
+.architecture-technical ul{margin:14px 0 0;padding-left:20px;font-size:12px;line-height:2;color:var(--muted)}
+.architecture-technical li+li{margin-top:8px}
+.architecture-technical a{text-decoration:underline;text-underline-offset:3px}
+.architecture-entry{display:inline-block;font-size:11px;line-height:1.8;text-decoration:underline;text-underline-offset:5px;margin-top:15px}
+/* 阅读架构图时，收起浮动状态条，避免遮挡流程节点。 */
+body:has(#architecture:target)>.preview-note{display:none}
+@media(max-width:1100px){.architecture{padding:25px}.architecture-map{grid-template-columns:110px 24px 140px 32px minmax(0,1fr)}.architecture-node{padding:14px 11px}.architecture-node strong{font-size:14px}.architecture-api{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr)}}
+@media(max-width:940px){.architecture-map{grid-template-columns:minmax(0,1fr) 35px minmax(0,1fr);gap:0 8px}.architecture-fork{display:none}.architecture-routes{grid-column:1/-1;margin-top:30px;position:relative}.architecture-routes::before{content:'↓';position:absolute;top:-27px;right:23%;font-size:23px;color:#718675}.architecture-routes{grid-template-rows:auto}.architecture-api{grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr)}.architecture-evidence{gap:15px}}
+@media(max-width:560px){.architecture{padding:20px 16px;margin-bottom:40px}.architecture-header{display:block}.architecture-status{display:inline-block;margin-top:14px}.architecture h3{font-size:23px}.architecture-intro{font-size:12px}.architecture-controls{gap:7px;margin-top:18px}.architecture-controls button{font-size:11px;padding:9px 11px}.architecture-map{grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);gap:0 5px}.architecture-node{padding:13px 10px}.architecture-node strong{font-size:14px}.architecture-node p{font-size:11px}.architecture-route{padding:11px}.architecture-api{grid-template-columns:1fr;gap:10px}.architecture-api .architecture-arrow{transform:rotate(90deg);font-size:20px}.architecture-node .architecture-resource{font-size:9px}.architecture-evidence{grid-template-columns:1fr;gap:17px}.architecture-explanation{font-size:12px;padding:14px}.architecture-log-flow{grid-template-columns:1fr;gap:9px}.architecture-log-flow .architecture-arrow{transform:rotate(90deg);font-size:20px}.architecture-legend{font-size:10px}.architecture-independent-header>span{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.architecture-route{transition:none}}
+@media print{.architecture{padding:12px;background:#fff;break-inside:auto;border-color:#999}.architecture-controls{display:none}.architecture-route{opacity:1!important}.architecture-node{box-shadow:none}.architecture-map,.architecture-log-flow,.architecture-evidence{break-inside:avoid}.architecture-explanation{display:none}.architecture-technical{display:none}}

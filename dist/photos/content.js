@@ -1,6 +1,9 @@
 // 照片应用的界面文字。照片标题来自接口，原求职文案文件保持独立。
 window.PHOTO_TEXT = {
   ja: {
+    locationFuji: '富士山', locationIzu: '伊豆', locationTokyo: '東京', locationHakone: '箱根',
+    locationInnerMongolia: '内モンゴル', locationZushi: '逗子', locationYokohama: '横浜', locationOdawara: '小田原', locationAtami: '熱海', unknownLocation: '不明な撮影地',
+    locationFilter: '撮影地', allLocations: 'すべての撮影地', unassigned: '未分類', emptyLocation: 'この撮影地の写真はまだありません。',
     pageTitle: '写真 | Cloud & Nature', skip: '本文へ移動', photoNumber: '写真 {number}', previewTitle: '写真のプレビュー',
     title: '写真を見て、原寸でダウンロード。',
     intro: '自分で撮影し、仕上げた写真です。プレビューで選んで、元のサイズの JPG を保存できます。',
@@ -16,6 +19,9 @@ window.PHOTO_TEXT = {
     imageError: 'プレビュー画像を読み込めません。', back: 'ポートフォリオへ戻る'
   },
   zh: {
+    locationFuji: '富士山', locationIzu: '伊豆', locationTokyo: '东京', locationHakone: '箱根',
+    locationInnerMongolia: '内蒙古', locationZushi: '逗子', locationYokohama: '横滨', locationOdawara: '小田原', locationAtami: '热海', unknownLocation: '未知地点',
+    locationFilter: '拍摄地点', allLocations: '全部地点', unassigned: '未分类', emptyLocation: '这个地点目前没有照片。',
     pageTitle: '照片 | Cloud & Nature', skip: '跳转到正文', photoNumber: '照片 {number}', previewTitle: '照片预览',
     title: '浏览照片，下载原尺寸 JPG。',
     intro: '这里是我拍摄并修图后的作品。先看预览，再保存原尺寸的 JPG 文件。',
@@ -31,6 +37,9 @@ window.PHOTO_TEXT = {
     imageError: '预览图读取失败。', back: '返回求职网站'
   },
   en: {
+    locationFuji: 'Mount Fuji', locationIzu: 'Izu', locationTokyo: 'Tokyo', locationHakone: 'Hakone',
+    locationInnerMongolia: 'Inner Mongolia', locationZushi: 'Zushi', locationYokohama: 'Yokohama', locationOdawara: 'Odawara', locationAtami: 'Atami', unknownLocation: 'Unknown location',
+    locationFilter: 'Location', allLocations: 'All locations', unassigned: 'Uncategorized', emptyLocation: 'There are no photographs for this location yet.',
     pageTitle: 'Photography | Cloud & Nature', skip: 'Skip to content', photoNumber: 'Photograph {number}', previewTitle: 'Photo preview',
     title: 'Explore the photographs. Keep the full-size JPG.',
     intro: 'Photographs I have taken and edited. Explore the previews, then save the original-size JPG files.',

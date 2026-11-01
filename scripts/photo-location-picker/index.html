@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>照片地点分组（本地）</title><link rel="stylesheet" href="styles.css"><script defer src="app.js"></script></head>
+<body>
+  <main>
+    <h1 id="title">照片地点分组</h1>
+    <p id="intro">看图勾选同一地点的照片，一次应用地点，最后保存整份清单。这里只保存本地，不上传、不连接 AWS。</p>
+    <div class="toolbar">
+      <button type="button" id="select-all" disabled>全选</button><button type="button" id="clear-selection" disabled>取消勾选</button>
+      <label for="place">拍摄地点</label><select id="place" disabled></select><button type="button" id="apply" disabled>应用到已选照片</button>
+      <strong id="selection-count">已选 0 张</strong>
+      <label for="new-place">其他地点</label><input id="new-place" maxlength="60" placeholder="需要时添加地点"><button type="button" id="add-place">添加地点</button>
+    </div>
+    <p id="summary"></p><p id="status" role="status" aria-live="polite">正在读取本地照片。</p>
+    <div id="photos" class="photos"></div>
+    <div class="save-bar"><button id="save" type="button" disabled>保存本地清单</button><span id="save-note">不确定的照片可以保持“未分类”。</span></div>
+  </main>
+  <dialog id="preview"><button id="close-preview" type="button">关闭大图</button><img id="preview-image" alt=""><p id="preview-caption"></p></dialog>
+</body></html>

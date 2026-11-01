@@ -1,85 +1,88 @@
-# 下一对话交接
+# 下一对话交接：照片阶段完成，继续项目框架
 
-更新：2026-10-26（日本时间）。用户将自行开新对话，助手不要自动创建聊天。
+更新：2026-11-01（日本时间）。本人明确要求先整理交接，由本人另开对话；不要自动建聊天、提交或推送。本文件覆盖历史“类别未做/9张/待上传/收集履历”的下一步安排。
 
-## 当前接续点
+## 最新决定与下一主线
 
-照片下载首版本轮上线与收尾已完成（2026-10-26）。本人反馈首页入口→三语相册→原尺寸 JPG 下载正常；现有私有 S3/CloudFront、Python 3.12 Lambda、AWS_IAM 函数 URL、Lambda OAC、受邀请保护的 api/* 行为与 DynamoDB 均已接通。源站名 cj-photo-api；实际配置见 job-portfolio/config/photo-api.json。不要重建资源、重复上传或重做已完成配置。
+照片维护、地点筛选及新增83张发布已完成，线上共92张。本人最后发现：拍摄地点选项使用自己填写的中文，切换日文/英文界面时仍是中文。本人明确：这项改动若范围不大，先不改，留到项目最后整体三语修订。助手核对源码后判断可以限定为地点显示翻译，不需重传图片或改变分类；本轮没有实现或发布翻译补丁。
 
-真实线上17项验收全部通过：五条资料及分页结束、五张 JPG 共64,773,953字节及SHA256、接口/原图无邀请/过期/篡改拒绝、相册页无邀请拒绝、Lambda/S3匿名直连拒绝、首页两文件哈希一致。证据在忽略目录 .local/photo-app/verification-20261026-033121-561/，脚本 scripts/Test-PhotoDeployment.ps1；不重复整套验收，不当作百万图片性能证明。
+接下来回原四周计划的项目框架，按本人新对话具体要求推进。剩余候选为作品示例/证据的访客入口、可配置的履历文件下载框架，最后集中处理手机/三语/入口/源码查阅。本人没有现成履历，个人信息和正式文件后补，不能以收集任职资料阻塞框架。联系方式已上线，不要再加一次。整体讲解练习留项目完成后，不插入课程或考试。
 
-成本收尾按本人反馈完成：创建USD5/月预算，Email verification=Verified；Lambda日志保留7天；东京账号Lambda总并发10/未预留10，保持共享；DynamoDB ACTIVE/PAY_PER_REQUEST，MaxReadRequestUnits=10、MaxWriteRequestUnits=5，设置后相册正常。未制造费用测试告警投递。吞吐上限是尽力限流目标，突发可短暂超出；它和预算提醒均不是总费用硬封顶，也不限制S3/CloudFront原图流量。
+接续先读AGENTS.md、JOB_SEARCH_SITE_BLUEPRINT.md及PROJECT_STATUS.md最上方，再按任务读CAREER_DEVELOPMENT_PLAN.md、本文对应源码和证据；不反复全量读取历史、重做职业复盘或扩大四周范围。
 
-用户希望其他问题以后处理。下一轮按本人提出的目标继续：代码消化、新照片批量准备/预览自动化、分类搜索等尚未实现；不要默认扩展上传后台或Log Check联动。旧 main/ 副本尚未清理，不自动删除。此前Forbidden来自同桶对象键缺少photo-originals/，已修复。本人不需要持续新增细致手册，中文简短解释，每轮一个完整配置环节，不把操作成功当作理解。
+## 照片实际完成状态
 
-保留个人 dist/content.js 原字节（SHA256 FD7E68B34AC74207007B5F4AF345482ADE8886FA4A5AD374EDC54B39CBFD874B）。首页入口仅改index.html/app.js，旧介绍/页脚未顺手改写。私有GitHub保留原历史，代码上线里程碑589fec8，费用收尾记录按阶段保存，最新以Git记录为准。密钥、完整邀请、原JPG与生成证据仍排除；根目录规划文件是本地权威来源，docs/project-notes是提交时快照。
+- 原9张＋新增83张＝线上92张。新增原JPG共1,200,792,171字节，上传166个图片文件（83原JPG＋83 WebP），登记83张照片，另有地点查询目录副本；不是只写83个DynamoDB item。
+- 九地点：富士山18、伊豆21、东京6、箱根13、内蒙古14、逗子4、横滨3、小田原7、热海6。
+- 总列表真实分页24／24／24／20，无遗漏重复；九地精确集合、资料/原路径、一张新预览及新原图64字节Range请求均通过。单地点都少于24；地点内多页24／24／5来自明确合成资料，不能混称真实验收。
+- 几百万张仍为扩展目标，尚未实现/验证百万级导入或负载。现有单维护者CLI、完整本地快照、单相册PK及限流不能用92张成功代替规模验证，不自动加入公众上传、压测或新资源。
+- 本人觉得发布慢，一度以为卡死，但此前明确先不做速度优化。约1.20GB、166文件及逐项CLI核对为实际流程，未测各阶段耗时，不编造网络/CLI占比，不另开优化任务。
 
-## 旧阶段记录（以下状态以当前接续点为准）
+## 维护者操作与代码职责
 
-最新推进决定：本人决定今天先完成首版上线，代码理解可随后进行；条件搜索留下一版。相册已统一隐藏可见标题和文件名，原名称仅作辅助阅读；本地五卡片/五下载入口及无可见标题/文件名已核对。当前指导原 Lambda 换 Python、本人 CloudShell 用 scripts/grant-photo-read.sh 加指定 main 相册 Query 权限并测试，尚未收到这组结果；之后接受邀请保护的 CloudFront API，再上传原图和页面验收。不要照旧的“暂停配置”继续停在纯讲解。
+固定入口job-portfolio/Photo-Maintenance.cmd，直接启动Python，不依赖放宽PowerShell执行策略。
 
-当前实际版本：本人要求暂不加功能，仅改 Python 后端和去掉三语照片名必填；本地已完成，入口 backend/photo-api/lambda_function.py，Python 3.12，处理程序 lambda_function.lambda_handler。八项 Python 测试及浏览器可选标题回退通过，旧 JS 后端/本地服务已移除，界面 JS 与三语保留。现有五张名称保留，新增照片可不命名、只填一个名称或部分译名，缺省显示文件名。部署包 .local/photo-app/deploy-20261025-210328-778/photo-api.zip。DynamoDB 五条资料已由本人导入，云端 Lambda 仍是旧 Node.js 包；本轮未改云端或加分类/Log Check 联动。本人希望之后慢慢读，不安排当下操作/测试。恢复后先确认阅读需要，再在原函数迁移运行时/处理程序/ZIP，无需重建表或重新导入旧五条。
+1. 新JPG复制到.local/photo-app/new-input，已发布原图按哈希跳过，不要求删旧输入。
+2. 菜单2：生成新图预览/原JPG副本/资料，再打开本地看图页面。多选同地照片一次应用地点，可添加地点、保存未完成进度；地点齐全后“保存地点并完成准备”。
+3. 菜单3：继续最近未发布批次看图分组；已发布批次则打开材料，不重打包。
+4. 菜单4：临时会话过期才aws login并STS核对；profile photo-maintenance、东京、固定身份clc-admin，不建长期Key/改IAM。官方可选AI skills/MCP提示曾选n，不是自写安装。
+5. 菜单5：只读核对身份/目标/文件/冲突，显示计划；本人PUBLISH确认后才上传S3、登记DynamoDB。中断留回执，同批可重试；新增缺地点或资料正在更新时拒绝发布。
+6. 菜单6/7仅修改旧照片地点：本地看图保存→本人LOCATIONS确认写表。正常新图不需再6/7补登记。
 
-GitHub 已完成本轮上传：私有仓库 https://github.com/Colin-Jiang976/job-portfolio ，基线 fb2e902、本地照片应用实现 4b0cc37 已推送 main，远程 SHA 已核对。下文“实现待推送/仍未提交”属于此前阶段记录。当前先打开本地五张样本应用体验，再由本人控制台创建 DynamoDB 表；AWS 动态资源尚未创建。
+源码分工：
 
-最新实际进展：本人接受首版建议，已完成本地照片应用、只读 Lambda 代码和部署材料，尚未创建 DynamoDB/Lambda 或更新 AWS。五张原图下载字节/哈希、53 条合成分页、输入与错误处理程序测试共七项通过；浏览器三语/五图/大图/实际下载已核对。390px DOM 单列无横溢，手机截图工具失败，默认尺寸已恢复。说明见 job-portfolio/docs/照片应用第一版.md。本人已创建私有 GitHub 仓库 https://github.com/Colin-Jiang976/job-portfolio ，基线 fb2e902 已推送，后续实现提交看 Git 历史。原 roleValue 试改已随基线保存，字节未变，不再是未提交状态，不擅自定稿。密钥与完整邀请、原 JPG、生成材料继续忽略。下一步先本人体验本地，再本人控制台建表及后续 CloudShell 解释；理解状态未获新反馈。
+- scripts/photo_maintenance.py：菜单和调度。
+- prepare_photos.py、prepare-photo-data.cjs：预览/原图副本、ID/排序、大小/哈希、JSON与拆批；Node仍在使用，不笼统说只有三个Python工具。
+- photo_location_picker.py及photo-location-picker/：仅本机HTTP、HTML/CSS/JavaScript看图多选、保存清单，不识图猜地点或调用AWS。
+- photo_new_batch.py：地点齐全后同步本批catalog、选择清单、导入资料、候选基准，复用已生成图片。
+- photo_publish.py：CLI、确认发布、核对、回执/本地快照。
+- photo_location_maintenance.py：地点元数据、条件事务。
+- backend/photo-api/lambda_function.py和photo_locations.py：只读API、地点校验、Query与分页。
 
-最新决定：本人明确选择 DynamoDB，首版不采用常规 RDS/Aurora。下一步集中确认下载形式、上传维护、分页浏览范围与预算；已确认下载原尺寸修图 JPG、保持三语与现有邀请保护。实施前计划在 job-portfolio/docs/PHOTO_APP_PLAN.md。本人要求合适时放到 GitHub，建议首版范围确定后、动态开发前建私有基线；本地有 4 个提交、无远程，上级接续文档尚不在仓库内，.openai/hosting.json 已被跟踪。仓库名/公开范围未确认，未提交或推送，密钥/邀请继续排除。本段优先于下文“尚未选型”的历史比较。
+本地页面的随机会话地址/进程不是永久入口。旧8776用于已发布9张，8777用于本批83张；新对话不依赖旧进程，必要时用CMD重新开，不让本人重分92张。
 
-最新选型偏好：本人不喜欢 SQL，倾向不用常规 RDS，询问 Aurora Serverless。PHOTO_APP_FEASIBILITY.md 已补 Aurora v2 自动暂停、东京单价与计算示例。助手优先建议 DynamoDB；本人尚未选定，不追加默认 SQL 学习任务。继续先讨论用途、扩展与预算，不创建资源。
+## AWS数据与权限
 
-最新优先顺序：本人认为此前跳过了可行性评价，要求先说明照片下载 App 是否值得作为云岗位作品、几十张微缩版如何面向几万/百万张扩展、DynamoDB/RDS 额度与正常付费金额、SQL 学习价值。下载确定提供本人修图后原尺寸 JPG，方式未定。PHOTO_APP_FEASIBILITY.md 已记录官方价格与假设推算，尚未确认数据库或实施，不把扩展设计写成百万规模实测。后续先讨论评估结论与预算，再定最小功能。
+访客：签名Cookie→CloudFront→Lambda/DynamoDB取目录；图片经CloudFront/S3交付，不经Lambda转发。维护者：CMD/Python→CLI/本人临时IAM身份→S3及DynamoDB，两种授权不同。邀请由本地签发、CloudFront校验，没有邀请Lambda。
 
-静态网站与邀请访问本轮验收完成。用户最新澄清：原计划是上传几十张照片并实现供人浏览和下载的照片下载 Web App，作为求职时可操作的作品；仅静态履历不能完成目标。下一阶段用途已明确，需围绕应用确定数据库/接口、上传方式、单张/批量及下载文件规格。优先比较 DynamoDB 为建议，未获选型确认；不自动创建资源、上传后台或日志联动。用户询问数据库是否能保障文字安全，应解释权限与返回内容的边界，不记成已理解。照片说明可纳入，独立文章系统仍非必需。页脚等小改动、缓存专项练习与页面打磨继续暂缓。方案见 NEXT_STAGE_DATABASE_OPTIONS.md 最新应用草案。
+资源：S3 cj-job-portfolio-20261024-resume、CloudFront E1EXJ282JJY07Q（dh0h1qa1vbzc5.cloudfront.net）、Python3.12 Lambda cj-photo-api（lambda_function.lambda_handler）、DynamoDB cj-photo-catalog，均沿用。
 
-## 已有部署，继续复用
+原目录PK=ALBUM#main、SK=PHOTO#顺序#ID；同表同PK另有SK=LOCATION#地点ID#PHOTO#顺序#ID副本，复用原图片路径。地点选项在CONFIG#LOCATIONS。API按排序键前缀Query，非Scan、FilterExpression或只筛当前24条；书签绑定地点。事务同步原目录和地点副本，改地只移除旧查询条目，不删除S3图片。
 
-- 区域：东京 ap-northeast-1。
-- S3 私有桶：cj-job-portfolio-20261024-resume；阻止所有公有访问开启。
-- CloudFront 分配：E1EXJ282JJY07Q；默认根对象 index.html。
-- 网站：https://dh0h1qa1vbzc5.cloudfront.net/ 。现在普通根网址在没有凭证时被拒绝，这是预期结果。
-- 行为：invite/* 公开通用邀请入口；默认 (*) 使用可信密钥组保护其余内容。
-- 公钥 ID：KCCXWBSABUX95。
-- 密钥组 ID：e187cfe4-80f0-48d0-95ab-31675bf99a4d。
-- 默认邀请有效 30 天，可转发，重新打开和转发不续期。进入后根网址不包含完整邀请，转发使用最初完整链接。
-- 未启用可选 WAF、Origin Shield，未为本轮新增 Route 53 托管区域；不新建重复分配，不升级账号。
+未新建表/GSI或扩大Lambda权限，沿用同表同相册Query；发布使用本人已有IAM身份。原权限、费用提醒和限流不重配，提醒不是费用硬封顶。
 
-## 验证与边界
+## 已知待整体修正：地点名称三语
 
-本人反馈三语、五张照片和大图正常。OAC 签名设置有截图证据，桶策略限定上述分配只读，S3 首页匿名直连 AccessDenied；本人提供 CloudFront 照片直连 MissingKey。
+相册按钮/状态已有日中英，但API的locations[].label是维护者输入原文，dist/photos/app.js直接显示，故九地名称为中文。这是实际待修项，不能记作三语全部完成。
 
-Codex 已执行 11 组本地浏览器场景及 8 项真实 CloudFront HEAD 测试。实际 200：公开入口、有效凭证首页、有效凭证照片、同一凭证在另一新 HTTP 客户端读取首页。实际 403：无凭证首页/照片、篡改到期但保留原签名、签名正确但已过期。HEAD 不等于全部浏览器和全部文件的完整下载验证。不要重复整套已通过测试，除非新改动需要。
+建议保留现有地点ID、查询参数、照片归类，按界面语言显示译名。现有九地可用显示映射做小范围修改，未知新地点回退原文；若扩展地点元数据多语字段，则须兼容photo_locations.py的parse_registry及前端校验，不直接改变接口结构。
 
-账号据本人反馈为免费计划，剩余 177 天，抵扣金 140 USD（2026-10-25）；准确到期日未核实。Bills 截图各列示服务及总额 USD 0.00，不推断以后用量永久为零。日常身份即使尝试授权仍不能看账单，用户要求先放着，后续需要时再排查。
+特别注意：地点ID由规范化原始地点文字的SHA256前24位生成，不能将已存location直接改为日/英文再重算ID，否则查询键改变。翻译不需重传原图、重分92张、重建数据库或增加人工三语照片标题。具体实现留最后整体修订时确定，本轮不做。
 
-## 文件和密钥
+## 证据与说明索引
 
-- AGENTS.md：项目规则，优先读取。
-- JOB_SEARCH_SITE_BLUEPRINT.md：方向和已确认约定。
-- PROJECT_STATUS.md：详细进度，含历史记录；最新阶段和“下一步”优先。
-- NEXT_STAGE_DATABASE_OPTIONS.md：下一阶段用途与方案比较，均为候选。
-- job-portfolio/dist/：当前网站，共原有文件加 invite/ 四个通用入口文件。
-- job-portfolio/dist/content.js：个人资料三语文案，已有本人未提交的日文 roleValue 试改「クラウド・インフラ設計・構築」，必须保留；当前 SHA256 为 FD7E68B34AC74207007B5F4AF345482ADE8886FA4A5AD374EDC54B39CBFD874B。试改已上传，但不定为最终定位。
-- job-portfolio/dist/photos.js：五张照片的路径、顺序和标题键；新数据库资料尚未替代它。
-- job-portfolio/dist/invite/content.js：公开入口的通用三语提示，不公开根 content.js 中的个人资料。
-- job-portfolio/config/cloudfront-invitation.json：域名、公钥及密钥组等非秘密配置。
-- job-portfolio/scripts/New-CloudFrontSigningKey.ps1：PowerShell 7 生成 RSA 2048 密钥，拒绝覆盖已有文件。
-- job-portfolio/scripts/New-PortfolioInvitation.ps1：本地生成 30 天邀请，不调用 AWS。
-- job-portfolio/scripts/Test-CloudFrontInvitation.ps1：8 项真实站点只读验收，不输出凭证。
-- job-portfolio/scripts/test-invitation.cjs：本地浏览器测试；Playwright 可使用本机 Edge。
-- job-portfolio/CloudFront邀请访问准备.md：邀请机制、部署与恢复步骤、测试证据。
+以下路径均相对job-portfolio/：
 
-私钥在 job-portfolio/.local/cloudfront/private-key.pem，公钥为同目录 public-key.pem；密钥和完整邀请文件均被 .gitignore 忽略，不在 dist/ 内。只需核对存在，不输出私钥或完整凭证。本地已有 invitation-20261025-052303-45c16599.txt，生成时设定到期为 2026-11-24 14:23:03 +09:00；后续按需重新生成。
+- 最新批次.local/photo-app/batches/20261101-112642-34c2e3f8/；其publish-result.json为verified/166文件/83张。
+- .local/photo-app/published-catalog.json及published-state.json均92。
+- 本批线上15项：上述批次/online-verification-20261101-030604/results.json。
+- 首轮地点上线19项：.local/photo-app/location-feature-check/online-verification-20261101-013034/results.json。
+- 静态已发布基准.local/site-releases/published-reference.json指向release-20261030-215539-9487211e，范围photos四文件；未变首页沿用此前联系更新证据。
+- docs/照片维护设计说明.md、照片地点筛选.md、照片批量维护.md保存流程；docs/网站更新与恢复.md保存静态更新/本地恢复。
+- 针对性检查分多轮且有重叠，不把计数相加，不重跑原17项、重下载全部原图或制造新上传验收。
 
-## 工作与理解状态
+## 原计划剩余与接续边界
 
-- 使用中文，用户自行操作 AWS 控制台，Codex 准备代码、解释用途并核对证据；后续若需 CLI 或改为助手部署，先明确执行方式和账号权限。
-- 用户反馈单项等待的测试太琐碎，一轮可合并几项相关操作，异常再拆解；优先文字，必要时截图。
-- 用户表示签名与密钥“大概理解”，也曾不知道如何提问；主动串联请求流程，不把照做成功视为掌握。
-- 页面设计和整体内容打磨继续暂停。数据库用途、选型、管理后台、照片下载、业务工具展示、Log Check 去留均未确定。
-- 本轮未提交代码；除本人原 content.js 修改外，有邀请实现及文档等未提交文件，先核对 git status，不重置、不自动提交或部署。
-- 网站仍有“待 AWS 部署”等过时文案，用户选择暂缓小改动，不因此自动修正文案。
+Log Check按需交接、来源明确的脱敏三语报告、首页架构图、Java入口已上线；受控故障/格式结果标本地，不是实时采集。MonitorTool/RdsLogArchive本地审阅、必要修正、虚构演示与本人反馈已完成；网站有说明，访客演示/证据入口仍缺，不能把本地演示说成已接网页。
 
-## 可复制的新对话开场
+Site-Release.cmd及检查/增量包/本地静态恢复完成，不是云端全栈或照片库/数据库灾难恢复。联系方式已上线验证。履历下载框架未做，本人无现成文件，个人资料后补；不放假下载链接或假履历。源码给招聘方的查阅方式及最终集中体验检查待收尾，不自动公开私有仓库。
 
-请接续求职网站与 DynamoDB 照片下载应用。先读 AGENTS.md、JOB_SEARCH_SITE_BLUEPRINT.md、PROJECT_STATUS.md、本交接及 job-portfolio/docs/照片应用第一版.md，核对 Git 状态与实际代码。首版已确认单张原 JPG、控制台上传与批量资料、每页 24 张、约 USD 5/月预算目标。本地五张样本已验证，私有 GitHub 仓库已推送；AWS 静态站与 30 天邀请验收完成，动态数据库/接口尚未部署。先帮助我串起读取资料到下载原文件的流程，再由我操作控制台逐组部署，不自动创建重复资源或上传后台、ZIP、日志联动。保留本人文案字节内容，不把操作成功当作理解；用中文、一轮合并相关步骤，异常再拆解。
+代码仓库是job-portfolio/，上级规划根目录不是Git仓库。大量既有已修改/未跟踪源码尚未提交，保留全部及dist/content.js原roleValue三语试改，不重置或擅自推送。密钥、完整邀请、私人原JPG、生成批次/回执继续排除在Git外，不公开.local。
+
+本人为新人，目标展现AWS理解，代码由AI协助，不夸大独立实现、节时或百万规模。后期解说围绕需求→取舍→数据/权限链→本人操作→验证依据，按源码/回执/历史聊天找事实；不承诺跨聊天逐字记忆，也不要求本人现在把问题全部问完。
+
+每次回复末尾给具体下一步、执行人和需反馈内容。按完整环节推进，助手自主定位/实现/必要检查，AWS本人操作；不逐菜单确认、做美化/外围工具或旧验收。四周至11/22、11月底SAA目标/12月求职保持，12月前不另开Linux课程。
+
+建议新对话起始语：
+
+> 请按NEXT_CHAT_HANDOFF.md继续完成项目框架。照片92张及地点筛选已完成，地点名称日英显示留最后整体修订。先核对剩余作品演示/证据入口和履历下载框架；个人资料后补，不重跑照片验收或另扩功能。

@@ -95,7 +95,7 @@ class PhotoTests(unittest.TestCase):
         items[2]["title"] = {"M": {"zh": {"S": "中文标题"}}}
         items[3]["title"] = {"NULL": True}
         last = {"PK": {"S": "ALBUM#main"}, "SK": {"S": CATALOG[-1]["SK"]}}
-        client = Mock(); client.query.return_value = {"Items": items, "LastEvaluatedKey": last}
+        client = Mock(); client.query.side_effect = lambda **kw: {} if kw["Limit"] == 1 else {"Items": items, "LastEvaluatedKey": last}
         factory = Mock(return_value=client)
         with patch.dict(sys.modules, {"boto3": SimpleNamespace(client=factory)}), patch.object(api, "_client", None), \
                 patch.dict(os.environ, {"PHOTO_TABLE": "cj-photo-catalog", "PHOTO_ALBUM": "main"}):
@@ -107,7 +107,7 @@ class PhotoTests(unittest.TestCase):
             self.assertNotIn("title", data["photos"][3]); self.assertEqual(len(data["photos"]), 5)
             api.lambda_handler(event("cursor=" + data["nextCursor"]), None)
             factory.assert_called_once_with("dynamodb")
-            query = client.query.call_args.kwargs
+            query = [call.kwargs for call in client.query.call_args_list if call.kwargs["Limit"] == 24][-1]
             self.assertEqual(query["TableName"], "cj-photo-catalog"); self.assertEqual(query["Limit"], 24)
             self.assertEqual(query["ExpressionAttributeValues"][":album"], {"S": "ALBUM#main"})
             self.assertEqual(query["ExclusiveStartKey"], last)

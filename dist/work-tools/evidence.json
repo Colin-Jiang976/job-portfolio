@@ -1,0 +1,68 @@
+{
+  "schema": "work-tools-evidence-1",
+  "prepared_on_jst": "2026-11-01",
+  "kind": "selected historical local verification records; not a new run",
+  "inputs": "synthetic only",
+  "monitorTool": {
+    "configurationExample": {
+      "morningFolderCounts": [
+        2,
+        3,
+        3,
+        3,
+        2
+      ],
+      "maximumLogs": 13,
+      "morningPages": 3,
+      "basis": "MonitorTool/config.example.json; source-reviewed example, not measured output"
+    },
+    "urlValidation": {
+      "date": "2026-10-26",
+      "casesPassed": 6,
+      "sourceRecord": "work-tools-review/VALIDATION.md"
+    },
+    "priorCorePass": "owner-provided earlier local test record; not rerun or independently expanded"
+  },
+  "rdsLogArchive": {
+    "workflowCheck": {
+      "date": "2026-10-27",
+      "sourceRecord": "monitoring-tool/workflow-result-20261027.json",
+      "GroupedAB": true,
+      "MatchedOnlyOpenRequests": 2,
+      "ActualApplicationsLaunched": 0,
+      "SourcesRetained": true
+    },
+    "copyAndFailureChecks": {
+      "date": "2026-10-26",
+      "assertionsPassed": 39,
+      "sourceRecord": "work-tools-review/VALIDATION.md",
+      "coverage": [
+        "preview without archive writes",
+        "SHA256 copy verification",
+        "source retention",
+        "refuse overwrite",
+        "missing or duplicate input refusal",
+        "retain local result on backup failure"
+      ]
+    },
+    "separateSyntheticDemo": {
+      "sourceRecord": "work-tools-review/VALIDATION.md",
+      "matchingLines": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "backup": "NotRequested",
+      "keywordWarning": "ERROR=0 matches text; matches are not incident counts"
+    }
+  },
+  "limits": [
+    "No workplace installation or company-network test of review copy",
+    "No real shared backup verified",
+    "No measured time savings or fewer missed checks",
+    "Open requests were intercepted by stubs; no application launched",
+    "Original workplace versions and AI-assisted review copies are distinct"
+  ],
+  "collaboration": "Owner: workflows, requirements, choices and feedback. AI: code, revisions and local verification assistance."
+}

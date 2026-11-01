@@ -5,13 +5,26 @@ import json
 import logging
 import os
 import re
+from datetime import datetime, timezone
 from urllib.parse import parse_qsl
+from photo_locations import (CONFIG_KEY, UNASSIGNED, clean_location, location_id,
+                             parse_registry, sort_prefix, valid_sort_key)
 
 PAGE_SIZE = 24
 ID = re.compile(r"[a-z0-9][a-z0-9-]{0,63}")
 SORT_KEY = re.compile(r"PHOTO#\d{9}#[a-z0-9][a-z0-9-]{0,63}")
 LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.INFO)
 _client = None
+
+
+def application_event(level, code):
+    """只记录固定应用事件；不带请求、凭证、照片资料或原始异常。"""
+    messages = {"PHOTO_LIST_READ_OK": "Photo catalog page read successfully",
+                "PHOTO_READ_FAILED": "Photo catalog read failed"}
+    LOGGER.log(level, json.dumps({"timestamp": datetime.now(timezone.utc).isoformat(),
+                                "level": logging.getLevelName(level), "service": "cj-photo-api",
+                                "message": messages[code], "code": code}, separators=(",", ":")))
 
 
 def encode_cursor(key):
@@ -22,7 +35,7 @@ def encode_cursor(key):
     return base64.urlsafe_b64encode(raw).decode("ascii").rstrip("=")
 
 
-def decode_cursor(token, partition):
+def decode_cursor(token, partition, selected=""):
     if not token:
         return None
     if len(token) > 512 or not re.fullmatch(r"[A-Za-z0-9_-]+", token):
@@ -32,7 +45,7 @@ def decode_cursor(token, partition):
         key = json.loads(raw)
         if (not isinstance(key, dict) or set(key) != {"PK", "SK"}
                 or key["PK"] != partition or not isinstance(key["SK"], str)
-                or not SORT_KEY.fullmatch(key["SK"])):
+                or not valid_sort_key(key["SK"], selected)):
             raise ValueError()
         return key
     except (ValueError, TypeError, UnicodeError) as error:
@@ -76,10 +89,14 @@ def public_photo(item, album_id):
     title = optional_title(item.get("title"))
     if title is not None:
         photo["title"] = title
+    if "location" in item:
+        if not isinstance(item["location"], str):
+            raise ValueError("INVALID_LOCATION")
+        photo["location"] = clean_location(item["location"])
     return photo
 
 
-def handle_request(event, read_page, album_id="main"):
+def handle_request(event, read_page, album_id="main", read_locations=None):
     """一次请求：检查输入 → 读取一页 → 整理照片资料 → 返回结果。"""
     method = event.get("requestContext", {}).get("http", {}).get("method")
 
@@ -94,32 +111,43 @@ def handle_request(event, read_page, album_id="main"):
     if method not in ("GET", "HEAD"):
         return respond(405, {"code": "METHOD_NOT_ALLOWED"}, allow="GET, HEAD")
     if not isinstance(album_id, str) or not ID.fullmatch(album_id):
+        application_event(logging.ERROR, "PHOTO_READ_FAILED")
         return respond(503, {"code": "PHOTO_SERVICE_UNAVAILABLE"})
     partition = f"ALBUM#{album_id}"
     params = parse_qsl(event.get("rawQueryString") or "", keep_blank_values=True)
-    if any(key != "cursor" for key, _ in params) or len(params) > 1:
+    if any(key not in ("cursor", "location") for key, _ in params) or len({k for k, _ in params}) != len(params):
         return respond(400, {"code": "INVALID_REQUEST"})
+    params = dict(params)
+    selected = params.get("location", "")
     try:
-        after = decode_cursor(params[0][1] if params else None, partition)
+        prefix = sort_prefix(selected)
+    except ValueError:
+        return respond(400, {"code": "INVALID_LOCATION"})
+    try:
+        after = decode_cursor(params.get("cursor"), partition, selected)
     except ValueError:
         return respond(400, {"code": "INVALID_CURSOR"})
     try:
-        page = read_page(partition=partition, after=after, limit=PAGE_SIZE)
+        page = read_page(partition=partition, after=after, limit=PAGE_SIZE,
+                         **({"prefix": prefix} if selected else {}))
         items = page["items"]
         if not isinstance(items, list) or len(items) > PAGE_SIZE:
             raise ValueError("INVALID_PAGE")
         photos = [public_photo(item, album_id) for item in items]
+        if selected and any(location_id(item.get("location")) != selected for item in items):
+            raise ValueError("WRONG_LOCATION_RECORD")
         last_key = page.get("lastKey")
         if last_key is not None:
-            decode_cursor(encode_cursor(last_key), partition)
-        return respond(200, {"photos": photos, "nextCursor": encode_cursor(last_key)})
-    except Exception as error:
-        # 不记录 Cookie、照片内容、完整请求或 AWS 凭据。
-        details = getattr(error, "response", {})
-        aws_code = details.get("Error", {}).get("Code") if isinstance(details, dict) else None
-        name = aws_code if isinstance(aws_code, str) and re.fullmatch(r"[A-Za-z0-9_.-]{1,80}", aws_code) else type(error).__name__
-        LOGGER.warning(json.dumps({"code": "PHOTO_READ_FAILED", "name": name,
-                                   "requestId": event.get("requestContext", {}).get("requestId")}))
+            decode_cursor(encode_cursor(last_key), partition, selected)
+        data = {"photos": photos, "nextCursor": encode_cursor(last_key)}
+        if read_locations is not None:
+            data["locations"] = read_locations(partition)
+            data["selectedLocation"] = selected
+        response = respond(200, data)
+        application_event(logging.INFO, "PHOTO_LIST_READ_OK")
+        return response
+    except Exception:
+        application_event(logging.ERROR, "PHOTO_READ_FAILED")
         return respond(503, {"code": "PHOTO_SERVICE_UNAVAILABLE"})
 
 
@@ -137,6 +165,10 @@ def from_dynamo(item):
         pass
     elif title:
         raise ValueError("INVALID_TITLE")
+    if "location" in item:
+        if not isinstance(item["location"].get("S"), str):
+            raise ValueError("INVALID_LOCATION")
+        photo["location"] = clean_location(item["location"]["S"])
     return photo
 
 
@@ -145,28 +177,41 @@ def lambda_handler(event, context):
     table_name = os.environ.get("PHOTO_TABLE")
     album_id = os.environ.get("PHOTO_ALBUM", "main")
 
-    def read_page(*, partition, after, limit):
+    def client():
         global _client
         if not table_name:
             raise ValueError("PHOTO_TABLE_NOT_CONFIGURED")
         if _client is None:
             import boto3  # Lambda Python 运行时提供；本地模拟不需要 AWS 连接。
             _client = boto3.client("dynamodb")
+        return _client
+
+    def read_locations(partition):
+        result = client().query(TableName=table_name,
+            KeyConditionExpression="#p = :p AND #s = :s",
+            ExpressionAttributeNames={"#p": "PK", "#s": "SK", "#j": "locationsJson"},
+            ExpressionAttributeValues={":p": {"S": partition}, ":s": {"S": CONFIG_KEY}},
+            ProjectionExpression="#j", Limit=1, ConsistentRead=True)
+        rows = result.get("Items", [])
+        return parse_registry(rows[0]["locationsJson"]["S"] if rows else None)
+
+    def read_page(*, partition, after, limit, prefix="PHOTO#"):
         request = {
             "TableName": table_name,
             "KeyConditionExpression": "#pk = :album AND begins_with(#sk, :photo)",
             "ExpressionAttributeNames": {"#pk": "PK", "#sk": "SK", "#id": "id", "#preview": "previewKey",
                                          "#original": "originalKey", "#file": "filename", "#bytes": "sizeBytes",
-                                         "#hash": "sha256", "#title": "title"},
-            "ExpressionAttributeValues": {":album": {"S": partition}, ":photo": {"S": "PHOTO#"}},
-            "ProjectionExpression": "#id, #preview, #original, #file, #bytes, #hash, #title",
+                                         "#hash": "sha256", "#title": "title", "#location": "location"},
+            "ExpressionAttributeValues": {":album": {"S": partition}, ":photo": {"S": prefix}},
+            "ProjectionExpression": "#id, #preview, #original, #file, #bytes, #hash, #title, #location",
             "Limit": limit,
+            "ConsistentRead": True,
         }
         if after:
             request["ExclusiveStartKey"] = {key: {"S": value} for key, value in after.items()}
-        result = _client.query(**request)
+        result = client().query(**request)
         last = result.get("LastEvaluatedKey")
         return {"items": [from_dynamo(item) for item in result.get("Items", [])],
                 "lastKey": {key: value["S"] for key, value in last.items()} if last else None}
 
-    return handle_request(event, read_page, album_id)
+    return handle_request(event, read_page, album_id, read_locations)

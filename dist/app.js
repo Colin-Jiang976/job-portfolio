@@ -10,6 +10,45 @@
   const languageButtons = document.querySelectorAll('[data-lang]');
   const menuButton = document.querySelector('.menu-toggle');
   const mobileNav = document.querySelector('#mobile-nav');
+  const architecture = document.querySelector('#architecture');
+  const architectureButtons = document.querySelectorAll('[data-architecture-view]');
+  const architectureExplanations = {
+    all: 'architectureExplainAll', page: 'architectureExplainPage',
+    catalog: 'architectureExplainCatalog', download: 'architectureExplainDownload'
+  };
+  let architectureView = 'all';
+
+  function renderDocuments(text) {
+    const list = document.querySelector('#document-downloads');
+    list.replaceChildren();
+    for (const slot of ['resume', 'career']) {
+      const file = window.PORTFOLIO_DOCUMENTS?.[slot];
+      if (typeof file !== 'string' || !/^documents\/[a-zA-Z0-9][a-zA-Z0-9._/-]*\.(pdf|docx)$/.test(file) ||
+          file.split('/').some(part => !part || part === '.' || part === '..')) continue;
+      const link = document.createElement('a');
+      link.className = 'text-link'; link.href = file; link.download = file.split('/').at(-1);
+      link.textContent = text[slot === 'resume' ? 'downloadResume' : 'downloadCareer'];
+      const row = document.createElement('p'); row.append(link); list.append(row);
+    }
+    document.querySelector('#document-status').textContent = text[list.childElementCount ? 'documentsReady' : 'documentsPending'];
+  }
+
+  function renderArchitecture(language) {
+    if (!architecture) return;
+    architecture.dataset.view = architectureView;
+    architectureButtons.forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.architectureView === architectureView));
+    });
+    const explanation = document.querySelector('#architecture-explanation');
+    explanation.dataset.i18n = architectureExplanations[architectureView];
+    explanation.textContent = translations[language][explanation.dataset.i18n];
+  }
+
+  architectureButtons.forEach(button => button.addEventListener('click', () => {
+    if (!Object.hasOwn(architectureExplanations, button.dataset.architectureView)) return;
+    architectureView = button.dataset.architectureView;
+    renderArchitecture(document.documentElement.lang);
+  }));
 
   // 按配置生成相册。更换图片、排序或标题不需要修改这段代码。
   const photos = window.PORTFOLIO_PHOTOS;
@@ -64,8 +103,22 @@
       link.href = `photos/index.html?lang=${language}`;
       link.querySelector('[data-photo-app-label]').textContent = photoAppLabels[language];
     });
+    renderArchitecture(language);
+    document.querySelectorAll('[data-log-check-link]').forEach(link => {
+      link.href = `log-check/index.html?lang=${language}`;
+    });
+    document.querySelectorAll('[data-tools-link]').forEach(link => {
+      link.href = `work-tools/index.html?lang=${language}`;
+    });
+    renderDocuments(text);
     // 某些浏览器或本地文件模式会禁用存储；禁用时仍可正常切换。
     try { localStorage.setItem('cloud-nature-language', language); } catch {}
+    // 链接中的lang也同步，避免刷新时旧参数覆盖刚选择的语言。
+    try {
+      const url = new URL(location.href);
+      url.searchParams.set('lang', language);
+      history.replaceState(null, '', url);
+    } catch {}
   }
 
   languageButtons.forEach(button => {
@@ -92,9 +145,10 @@
   window.matchMedia('(min-width: 761px)').addEventListener('change', event => {
     if (event.matches) closeMenu();
   });
-  document.querySelector('#print-page').addEventListener('click', () => window.print());
 
   let initialLanguage = 'ja';
   try { initialLanguage = localStorage.getItem('cloud-nature-language') || 'ja'; } catch {}
+  const requestedLanguage = new URLSearchParams(location.search).get('lang');
+  if (Object.hasOwn(translations, requestedLanguage)) initialLanguage = requestedLanguage;
   setLanguage(Object.hasOwn(translations, initialLanguage) ? initialLanguage : 'ja');
 })();
