@@ -2,7 +2,9 @@
 // 三种语言使用相同的键名；只改引号里的文字即可修改文案。
 window.PORTFOLIO_TEXT = {
   ja: {
-    toolsEntry: "ツールの例・検証・コードの閲覧方法 →",
+    toolsEntry: "ツールの例・検証・ソースコードを見る →",
+    siteSourceEntry: "サイトのソースコード / GitHub ↗",
+    toolSourceEntry: "ツールのソースコード / GitHub ↗",
     documentsTitle: "提出用の書類",
     documentsPending: "履歴書・職務経歴書は準備中です。用意できた書類をここからダウンロードできるようにします。",
     documentsReady: "用意できた提出用書類をダウンロードできます。",
@@ -137,7 +139,9 @@ window.PORTFOLIO_TEXT = {
     javaPracticeLink: "GitHubで練習コードを見る"
   },
   zh: {
-    toolsEntry: "查看工具示例、验证与源码查阅方式 →",
+    toolsEntry: "查看工具示例、验证与源码 →",
+    siteSourceEntry: "网站源码 / GitHub ↗",
+    toolSourceEntry: "工具源码 / GitHub ↗",
     documentsTitle: "提交用材料",
     documentsPending: "履历书与职务经历书准备中。正式文件备齐后可在这里下载。",
     documentsReady: "下载已提供的正式材料。",
@@ -272,7 +276,9 @@ window.PORTFOLIO_TEXT = {
     javaPracticeLink: "在 GitHub 查看练习代码"
   },
   en: {
-    toolsEntry: "View tool examples, evidence & source access →",
+    toolsEntry: "View tool examples, evidence & source code →",
+    siteSourceEntry: "Site source code / GitHub ↗",
+    toolSourceEntry: "Tool source code / GitHub ↗",
     documentsTitle: "Application documents",
     documentsPending: "The résumé and work history are being prepared. Documents will be available here when ready.",
     documentsReady: "Download the available application documents.",

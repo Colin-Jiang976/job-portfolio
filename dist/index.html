@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="styles.css?v=8e241427f12a">
   <link rel="stylesheet" href="theme.css?v=4fc189bd5c0e">
   <link rel="stylesheet" href="architecture.css?v=11e7107d2587">
-  <script src="content.js?v=d6b9dac62607" defer></script>
+  <script src="content.js?v=c7e26f3e2697" defer></script>
   <script src="documents.js?v=7c4228a5fd37" defer></script>
   <script src="contact.private.js" defer></script>
   <script src="photos.js?v=a4b53cfc2491" defer></script>
@@ -182,6 +182,7 @@ AWSで動かす。</h3>
           <p data-i18n="architectureLogNotify">内容にERROR / INVALID → LambdaからSNSへ通知 → メール。検査処理そのものが失敗 → CloudWatch Alarm → SNS → メール。</p>
           <p data-i18n="architectureLogBoundary">写真一覧APIのログを必要時に検査します。正常結果はAWS、障害・形式テストはローカル実行です。リアルタイム監視ではありません。</p>
           <a class="architecture-entry" href="log-check/index.html?lang=ja" data-log-check-link data-i18n="logCheckEntry">ログ連携・検査レポートを見る →</a>
+          <p><a class="text-link" href="https://github.com/Colin-Jiang976/job-portfolio" target="_blank" rel="noopener noreferrer" data-i18n="siteSourceEntry">サイトのソースコード / GitHub ↗</a></p>
         </aside>
         <details class="architecture-technical"><summary data-i18n="architectureTechnical">権限・パス・検証範囲をもう少し詳しく</summary><ul>
           <li data-i18n="architectureTechnicalInvite">招待はローカルの署名ツールで発行します。/invite/* は共通の公開入口で、入口のJavaScriptがCookieを保存。署名の検証はCloudFrontが行い、招待用Lambdaはありません。</li>
@@ -201,7 +202,8 @@ AWSで動かす。</h3>
 自動化のきっかけを。</h3>
           <p data-i18n="toolCopy">日々の運用手順をもとに、AIの支援を受けて制作したWindows PowerShellツール。勤務時間帯と更新日からログを選んで開き、早番の監視ページ起動もまとめます。ログの内容判断は人が行います。</p>
           <div class="tool-result"><span data-i18n="toolResultLabel">自動化した範囲</span><strong data-i18n="toolResult">ログ・画面の閲覧準備を一つの入口に</strong><small data-i18n="toolResultNote">設定例では通常の早番に5フォルダー・最大13ログ・3ページを扱います。例の対象数であり、実業務の操作回数や時間短縮の測定値ではありません。</small></div>
-          <p><a class="text-link" href="work-tools/index.html?lang=ja" data-tools-link data-i18n="toolsEntry">ツールの例・検証・コードの閲覧方法 →</a></p>
+          <p><a class="text-link" href="work-tools/index.html?lang=ja" data-tools-link data-i18n="toolsEntry">ツールの例・検証・ソースコードを見る →</a></p>
+          <p><a class="text-link" href="https://github.com/Colin-Jiang976/my-work-tools" target="_blank" rel="noopener noreferrer" data-i18n="toolSourceEntry">ツールのソースコード / GitHub ↗</a></p>
           <details><summary><span data-i18n="toolSummary">動作・検証・残る手作業</span><span class="details-icon" aria-hidden="true">＋</span></summary><p data-i18n="toolDetail">早番／遅番の選択、遅番の一部フォルダーでの選択位置変更、月曜の土日分補完をコードで確認。ローカルの選択・プレビュー・設定・認証情報保存にはテスト記録があります。認証情報の取用、ログ判読、祝日連休の補完は人が担当します。業務環境でのレビュー版の動作と時間短縮は未検証です。下のリンクで設定例・保存済みの検証と制限を確認できます。</p></details>
         </div>
       </article>

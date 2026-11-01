@@ -36,8 +36,8 @@ window.WORK_TOOLS_TEXT = {
     "sourceReports": "ログ連携・レポートを見る →",
     "sourceJava": "以前LeetCodeで取り組んだJava演習の学習補足です。Pythonのバックエンドとは別のリポジトリで、全件の合格や独力での実装を保証するものではありません。",
     "back": "ポートフォリオへ戻る",
-    "sourceRepositoryTitle": "プロジェクトのソースコード",
-    "sourceRepositoryNote": "コードは1つのリポジトリに整理する予定です。整理後は、ここにリポジトリへの直接リンクを掲載します。"
+    "sourceSite": "このサイトのHTML・JavaScript、写真APIのPythonコード、保守・公開用スクリプトを公開しています。",
+    "sourceTools": "2つのPowerShellツールの公開リポジトリです。整理版はreview/、以前の版は元のディレクトリに保存しています。"
   },
   "zh": {
     "pageTitle": "运维工具示例与验证 | Cloud & Nature",
@@ -76,8 +76,8 @@ window.WORK_TOOLS_TEXT = {
     "sourceReports": "查看日志交接与报告 →",
     "sourceJava": "这是此前用Java刷LeetCode的学习补充，与Python后端为不同仓库；不代表全部题目已通过或独立完成。",
     "back": "返回作品首页",
-    "sourceRepositoryTitle": "项目源码仓库",
-    "sourceRepositoryNote": "代码计划统一整理到一个仓库。整理后，这里将提供仓库链接，直接查阅源码。"
+    "sourceSite": "本站的HTML、JavaScript、照片API的Python代码，以及维护和发布脚本。",
+    "sourceTools": "两个PowerShell工具的公开仓库：review/内为整理版，原有目录保留旧版供对照。"
   },
   "en": {
     "pageTitle": "Work tool examples & evidence | Cloud & Nature",
@@ -116,7 +116,7 @@ window.WORK_TOOLS_TEXT = {
     "sourceReports": "View log handoff & reports →",
     "sourceJava": "Earlier LeetCode exercises written in Java, shared as supplementary study. This is separate from the Python backend and does not establish that every exercise passed or was independently implemented.",
     "back": "Back to portfolio",
-    "sourceRepositoryTitle": "Project source repository",
-    "sourceRepositoryNote": "The code is planned to be consolidated into one repository. A direct repository link will be provided here after that work."
+    "sourceSite": "This site's HTML and JavaScript, the Python photo API, and maintenance and release scripts.",
+    "sourceTools": "The public repository for both PowerShell tools. The prepared versions are under review/; earlier versions remain in their original directories."
   }
 };
