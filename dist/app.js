@@ -18,6 +18,25 @@
   };
   let architectureView = 'all';
 
+  function renderContact(text) {
+    const list = document.querySelector('#contact-links');
+    const contact = window.PORTFOLIO_CONTACT || {};
+    list.replaceChildren();
+    const add = (label, value, href) => {
+      const row = document.createElement('p');
+      const link = document.createElement('a'); link.className = 'text-link'; link.href = href;
+      const caption = document.createElement('span'); caption.textContent = label;
+      const display = document.createElement('span'); display.textContent = value;
+      link.append(caption, display); row.append(link); list.append(row);
+    };
+    if (typeof contact.email === 'string' && /^[^@\s<>]+@[^@\s<>]+\.[^@\s<>]+$/.test(contact.email)) {
+      add(text.contactEmailLabel, contact.email, 'mailto:' + contact.email);
+    }
+    if (typeof contact.phone === 'string' && /^\+[0-9]{8,15}$/.test(contact.phone)) {
+      add(text.contactPhoneLabel, typeof contact.phoneLabel === 'string' ? contact.phoneLabel : contact.phone, 'tel:' + contact.phone);
+    }
+  }
+
   function renderDocuments(text) {
     const list = document.querySelector('#document-downloads');
     list.replaceChildren();
@@ -111,6 +130,7 @@
       link.href = `work-tools/index.html?lang=${language}`;
     });
     renderDocuments(text);
+    renderContact(text);
     // 某些浏览器或本地文件模式会禁用存储；禁用时仍可正常切换。
     try { localStorage.setItem('cloud-nature-language', language); } catch {}
     // 链接中的lang也同步，避免刷新时旧参数覆盖刚选择的语言。

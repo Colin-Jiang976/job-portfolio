@@ -30,6 +30,12 @@
 
 ## 本地查看
 
+先在本机复制不含个人值的配置示例：
+
+    Copy-Item dist/contact.example.js dist/contact.private.js
+
+contact.private.js由.gitignore排除。需要显示联系方式时，仅在该本地文件填写；保持空值则不显示联系方式。该文件供受邀请保护的网站部署使用，不提交到源码仓库。
+
 运行：
 
     python -m http.server 8767 --bind 127.0.0.1 --directory dist
@@ -60,4 +66,4 @@
 
 ## 源码与运行资料
 
-仓库包含代码、说明和分享用示例。.local/保存本机密钥、完整邀请、原JPG/批次、回执和原始验证资料，由.gitignore排除，不属于源码提交。首页WebP和脱敏报告JSON是明确的展示资产。网站邀请访问和GitHub仓库可见性分别管理。
+仓库包含代码、说明和分享用示例。网站联系邮箱和电话放在被忽略的dist/contact.private.js，不硬编码进HTML/应用脚本；公开仓库只提供空白contact.example.js。.local/保存本机密钥、完整邀请、原JPG/批次、回执和原始验证资料，由.gitignore排除，不属于源码提交。首页WebP和脱敏报告JSON是明确的展示资产。网站邀请访问和GitHub仓库可见性分别管理。

@@ -10,3 +10,4 @@ node_modules/
 *.key
 __pycache__/
 *.py[cod]
+dist/contact.private.js
