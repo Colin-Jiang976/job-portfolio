@@ -1,14 +1,15 @@
-/* 常用视觉设置：改数值后保存，再刷新本地页面即可。 */
-:root {
-  --paper: #fafaf8;   /* 页面底色 */
-  --ink: #242d2b;     /* 标题、主要文字 */
-  --muted: #606c67;   /* 次要文字 */
-  --line: #d8ddd8;    /* 分隔线 */
-  --accent: #9b4b30;  /* 小编号等强调色 */
-  --forest: #1d2428;  /* 摄影区底色 */
+/* 求职首页、架构、工具、报告及邀请入口共用；相册采用独立自然主题。 */
+:root{
+  color-scheme:dark;
+  --paper:#111b2a;
+  --surface:#172537;
+  --ink:#eef2f7;
+  --muted:#b5c2d2;
+  --line:#33445b;
+  --accent:#ffb04a;
+  --cyan:#7dc9d7;
+  --sans:system-ui,-apple-system,"Segoe UI","Yu Gothic","Microsoft YaHei",sans-serif;
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--paper);
 }
-
-/* 三个最常见的微调入口。 */
-.hero h1 { font-size: clamp(36px, 3.4vw, 54px); }
-.hero { column-gap: 56px; }
-.photo-grid { column-gap: 24px; }

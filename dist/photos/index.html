@@ -7,14 +7,15 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <title>写真 | Cloud & Nature</title>
   <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=7c984e58628b">
-  <script src="content.js?v=0aa5ad73a6e6" defer></script>
-  <script src="app.js?v=b34883c38d4f" defer></script>
+  <link rel="stylesheet" href="styles.css?v=fe6a84651e03">
+  <script src="content.js?v=0245129a9a85" defer></script>
+  <script src="app.js?v=469cc2916c2a" defer></script>
 </head>
 <body>
   <a class="skip" href="#main" data-i18n="skip">本文へ移動</a>
   <header class="header">
     <a class="brand" href="../index.html">CLOUD <span>&</span> NATURE</a>
+    <a class="header-back" href="../index.html?lang=ja" data-home-link data-i18n="back">ポートフォリオへ戻る</a>
     <nav class="languages" aria-label="Language / 言語 / 语言">
       <button type="button" data-lang="ja" aria-label="日本語" aria-pressed="true">JP</button>
       <button type="button" data-lang="zh" aria-label="中文" aria-pressed="false">中</button>
@@ -22,11 +23,13 @@
     </nav>
   </header>
   <main id="main">
-    <section class="intro">
-      <p class="eyebrow">PHOTOGRAPHY / ORIGINAL JPG</p>
-      <h1 data-i18n="title">写真を見て、原寸でダウンロード。</h1>
-      <p class="lead" data-i18n="intro">自分で撮影し、仕上げた写真です。プレビューで選んで、元のサイズの JPG を保存できます。</p>
-      <p class="local-notice" id="local-notice" data-i18n="localNotice" hidden>ローカル動作確認用です。AWS のデータベース・招待認証には接続していません。</p>
+    <section class="intro landscape-intro">
+      <img class="landscape-cover" src="../assets/photos/IMG_8655.webp" alt="" width="1800" height="1200" fetchpriority="high">
+      <div class="intro-content"><p class="eyebrow">PHOTOGRAPHY / JAPAN & BEYOND</p>
+      <h1 data-i18n="title">風景を、ゆっくりと。</h1>
+      <p class="lead" data-i18n="intro">各地で撮影し、仕上げた写真を掲載しています。撮影地で絞り込み、気に入った作品を原寸JPGで保存できます。</p>
+      </div>
+      <p class="local-notice" id="local-notice" data-i18n="localNotice" hidden>ローカルプレビューです。招待認証は行っていません。</p>
     </section>
     <section class="album" aria-labelledby="album-title">
       <div class="album-heading"><h2 id="album-title" data-i18n="albumTitle">写真コレクション</h2><p id="page-summary"></p></div>
@@ -39,10 +42,10 @@
         <span id="page-number"></span>
         <button id="next" type="button" data-i18n="next">次のページ</button>
       </nav>
-      <p class="download-note" data-i18n="downloadNote">ダウンロードは元サイズの JPG です。保存先や完了状況はブラウザーで確認してください。</p>
+      <p class="download-note" data-i18n="downloadNote">ダウンロード形式は原寸JPGです。</p>
     </section>
   </main>
-  <footer><a id="back" href="../index.html?lang=ja#sapporo" data-i18n="back">ポートフォリオへ戻る</a><span>CLOUD & NATURE</span></footer>
+  <footer><a id="back" href="../index.html?lang=ja" data-i18n="back">ポートフォリオへ戻る</a><span>CLOUD & NATURE</span></footer>
   <dialog id="preview-dialog" aria-labelledby="preview-title">
     <div class="dialog-heading"><h2 id="preview-title" data-i18n="previewTitle">写真のプレビュー</h2><button id="close-preview" type="button" data-i18n="close">閉じる</button></div>
     <img id="preview-image" alt="">

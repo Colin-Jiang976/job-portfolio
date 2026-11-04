@@ -1,240 +1,53 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="AWSへの取り組み、業務の自動化、札幌で働きたい理由を伝える求職ポートフォリオ。">
-  <meta name="theme-color" content="#242d2b">
-  <title>Cloud & Nature | 求職ポートフォリオ</title>
-  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=8e241427f12a">
-  <link rel="stylesheet" href="theme.css?v=4fc189bd5c0e">
-  <link rel="stylesheet" href="architecture.css?v=11e7107d2587">
-  <script src="content.js?v=ccee1d196811" defer></script>
-  <script src="documents.js?v=ac482a695d8c" defer></script>
-  <script src="documents.private.js" defer></script>
-  <script src="contact.private.js" defer></script>
-  <script src="photos.js?v=a4b53cfc2491" defer></script>
-  <script src="app.js?v=e47935b15cc6" defer></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="運用経験、AWSの個人作品、業務の自動化を紹介する求職ポートフォリオ。">
+  <meta name="theme-color" content="#111b2a"><title>Cloud & Nature | 求職ポートフォリオ</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css?v=3de5f86d47ff">
+  <script src="content.js?v=9a365d1d3e42" defer></script><script src="documents.js?v=ac482a695d8c" defer></script><script src="documents.private.js" defer></script><script src="contact.private.js" defer></script><script src="app.js?v=dfe0b8352bfc" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">本文へ移動</a>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="Cloud & Nature, home">
-      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 25 12 9l5 9 4-7 9 14M8 25h17"/></svg>
-      <span>CLOUD <span class="brand-amp">&</span> NATURE<span class="brand-sub">PERSONAL PORTFOLIO</span></span>
-    </a>
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="#about" data-i18n="navAbout">私について</a>
-      <a href="#work" data-i18n="navWork">取り組み</a>
-      <a href="#architecture" data-i18n="navArchitecture">構成図</a>
-      <a href="#sapporo" data-i18n="navSapporo">札幌を選ぶ理由</a>
-    </nav>
-    <div class="language-switch" role="group" aria-label="Language / 言語 / 语言">
-      <button type="button" data-lang="ja" aria-pressed="true" aria-label="日本語">JP</button>
-      <button type="button" data-lang="zh" aria-pressed="false" aria-label="中文">中</button>
-      <button type="button" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
-    </div>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu"><span></span><span></span></button>
+  <header class="site-header section-wrap" id="top">
+    <a class="brand" href="#top">CLOUD <span>&</span> NATURE</a>
+    <nav class="desktop-nav" aria-label="Main navigation"><a href="#about" data-i18n="navAbout">経歴・書類</a><a href="#work" data-i18n="navWork">制作・体験</a><a class="nav-architecture" href="architecture.html?lang=ja" data-page-link="architecture.html" data-i18n="navArchitecture">サイトの構成 ↗</a></nav>
+    <div class="language-switch" role="group" aria-label="Language / 言語 / 语言"><button type="button" data-lang="ja" aria-pressed="true" aria-label="日本語">JP</button><button type="button" data-lang="zh" aria-pressed="false" aria-label="中文">中</button><button type="button" data-lang="en" aria-pressed="false" aria-label="English">EN</button></div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" data-i18n="menuLabel">メニュー</button>
+    <a class="mobile-architecture" href="architecture.html?lang=ja" data-page-link="architecture.html" data-i18n="navArchitecture">サイトの構成 ↗</a>
   </header>
-  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>
-    <a href="#about" data-i18n="navAbout">私について</a>
-    <a href="#work" data-i18n="navWork">取り組み</a>
-    <a href="#architecture" data-i18n="navArchitecture">構成図</a>
-    <a href="#sapporo" data-i18n="navSapporo">札幌を選ぶ理由</a>
-    <a href="#resume" data-i18n="navResume">履歴書について</a>
-  </nav>
+  <nav id="mobile-nav" class="mobile-nav section-wrap" aria-label="Mobile navigation" hidden><a href="#about" data-i18n="navAbout">経歴・書類</a><a href="#work" data-i18n="navWork">制作・体験</a><a class="nav-architecture" href="architecture.html?lang=ja" data-page-link="architecture.html" data-i18n="navArchitecture">サイトの構成 ↗</a></nav>
   <main id="main">
-    <section class="hero section-wrap" id="top" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="status-dot"></span> <span data-i18n="roleTag">CLOUD / INFRASTRUCTURE</span> <span class="eyebrow-divider">/</span> SAPPORO</p>
-        <h1 id="hero-title" data-i18n="heroTitle">運用の気づきを、
-クラウドの力に。</h1>
-        <p class="hero-description" data-i18n="heroCopy">AWSへの取り組みと、業務で使う監視ツール。
-これまでの実践と、札幌で働きたい理由を、この場所に。</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#work"><span data-i18n="heroCta">取り組みを見る</span><span aria-hidden="true">↗</span></a>
-          <a class="text-link" href="#sapporo"><span data-i18n="heroSecondary">なぜ、札幌なのか</span><span aria-hidden="true">↓</span></a>
-        </div>
-        <a class="architecture-entry" href="#architecture" data-i18n="architectureEntry">このサイトのAWS構成を見る →</a>
-        <p class="hero-footnote"><span class="small-line"></span><span data-i18n="heroNote">クラウドの学びと、自然のある暮らし。</span></p>
+    <section class="landing section-wrap" aria-labelledby="hero-title">
+      <div class="landing-intro"><div><p class="eyebrow">CLOUD & INFRASTRUCTURE / PERSONAL PORTFOLIO</p><h1 id="hero-title">姜 成龍</h1><p class="hero-description" data-i18n="landingCopy">運用の仕事と個人制作を通して、クラウド・インフラ分野の経験を積んでいます。</p></div><p class="landing-location">WORK · AUTOMATION · AWS<br><span data-i18n="landingLocation">希望勤務地 / 札幌</span></p></div>
+      <div class="focus-grid">
+        <section class="focus-card" aria-labelledby="personal-entry-title">
+          <div class="focus-topline"><span>ABOUT ME</span><span>01</span></div><h2 id="personal-entry-title" data-i18n="personalEntryTitle">私について</h2><p class="focus-copy" data-i18n="personalEntryCopy">これまでの経験、今の取り組み、提出用の書類。</p>
+          <dl class="focus-facts"><div><dt data-i18n="currentLabel">現在</dt><dd data-i18n="currentSummary">運用監視・システム保守</dd></div><div><dt data-i18n="practiceLabel">実践</dt><dd data-i18n="practiceSummary">業務ツール・AWS個人制作</dd></div><div><dt data-i18n="interestLabel">関心のある領域</dt><dd data-i18n="interestValue">AWS / 運用 / 自動化</dd></div></dl>
+          <div class="focus-actions"><a class="button button-primary" href="#about" data-i18n="personalEntryAction">経歴を見る ↓</a><a class="button button-outline" href="#resume" data-i18n="resumeEntryAction">履歴書 PDF ↓</a></div><p class="focus-caption" data-i18n="resumeEntryNote">履歴書 / 職務経歴書 · 提出用の2書類</p>
+        </section>
+        <section class="focus-card" aria-labelledby="project-entry-title">
+          <div class="focus-topline"><span>PROJECTS</span><span>02</span></div><h2 id="project-entry-title" data-i18n="projectEntryTitle">制作したもの</h2><p class="focus-copy" data-i18n="projectEntryCopy">実際のページから、AWSの写真アプリを体験。</p>
+          <div class="app-preview" role="img" data-i18n-aria-label="applicationPreviewLabel" aria-label="写真アプリの画面構成イメージ"><div class="app-preview-bar"><span>PHOTO APPLICATION</span><span>AWS / WEB</span></div><div class="app-preview-content"><div class="app-preview-tiles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="app-preview-description"><strong data-i18n="photoFeatures">閲覧・撮影地別表示・原寸ダウンロード</strong><span data-i18n="photoCollectionSummary">本人撮影92枚 / 9撮影地</span><p>CloudFront · S3<br>Lambda · DynamoDB</p></div></div></div>
+          <a class="button button-primary album-entry" href="photos/index.html?lang=ja" data-page-link="photos/index.html"><span data-i18n="photoExperienceAction">写真アプリを体験</span><span aria-hidden="true">↗</span></a><div class="focus-other"><a href="log-check/index.html?lang=ja" data-page-link="log-check/index.html" data-i18n="logEntryShort">ログ検査・レポート ↗</a><a href="work-tools/index.html?lang=ja" data-page-link="work-tools/index.html" data-i18n="toolsEntryShort">運用の補助ツール ↗</a></div>
+        </section>
       </div>
-      <figure class="hero-visual personal-photo">
-        <img id="hero-photo" src="assets/photos/IMG_8655.webp" alt="湖畔と富士山" data-i18n-alt="photoLake" width="1800" height="1200" fetchpriority="high">
-        <div class="visual-topline"><span>FIELD NOTES — 01</span><span aria-hidden="true">＋</span></div>
-        <figcaption class="visual-caption">
-          <span class="visual-overline">PHOTOGRAPHY / JAPAN</span>
-          <span class="visual-title" data-i18n="visualTitle">自然の近くで、
-次の一歩を。</span>
-          <span class="visual-note" data-i18n="visualNote">本人撮影 · Original photography</span>
-        </figcaption>
-      </figure>
+      <aside class="architecture-teaser" aria-labelledby="architecture-entry-title"><div><p class="eyebrow">HOW THIS SITE WORKS</p><h2 id="architecture-entry-title" data-i18n="architectureTeaserTitle">このサイトを支えるAWSの構成</h2><p data-i18n="architectureTeaserCopy">ファイル配信と写真一覧APIの経路、サービスの役割、アクセス制御を構成図で紹介します。</p></div><a class="button button-outline" href="architecture.html?lang=ja" data-page-link="architecture.html" data-i18n="architectureTeaserAction">サイトの構成を見る ↗</a></aside>
+      <a class="continue-entry" href="#about"><span data-i18n="continueProfile">この下に、経歴・学習・提出用書類を掲載しています。</span><span aria-hidden="true">↓</span></a>
     </section>
-
-    <section class="intro section-wrap" id="about" aria-labelledby="about-title">
-      <div class="section-label"><span class="section-number">01</span><span>ABOUT ME</span></div>
-      <div class="intro-content">
-        <h2 id="about-title" data-i18n="aboutTitle">経歴と、今できること。</h2>
-        <p class="intro-copy" data-i18n="aboutCopy">姜 成龍（きょう せいりゅう）です。2026年3月に明治大学会計専門職研究科を修了し、4月から株式会社CACクロスフュージョンで勤務しています。運用・保守とAZAREAを用いた業務を経験しながら、AWSの学習と個人制作を通じてクラウド・インフラ分野を目指しています。</p>
-        <dl class="profile-facts">
-          <div><dt data-i18n="roleLabel">志望分野</dt><dd data-i18n="roleValue">クラウド・インフラ設計・構築</dd></div>
-          <div><dt data-i18n="placeLabel">希望勤務地</dt><dd data-i18n="placeValue">札幌</dd></div>
-          <div><dt data-i18n="interestLabel">関心のある領域</dt><dd data-i18n="interestValue">AWS / 運用 / 自動化</dd></div>
-        </dl>
-        <div class="career-profile">
-          <section class="career-row" aria-labelledby="career-heading">
-            <h3 id="career-heading" data-i18n="careerTitle">職務経歴</h3>
-            <p data-i18n="careerCopy">2026年4月入社、正社員。Java・Oracle Database・Springの新人研修を経て、7月から2案件の定常監視とAZAREAを用いた業務に従事。手順書に基づくテスト・本番リリース、異常時のログ引き継ぎ、画面作成、翌年度のバッチ稼働カレンダー作成を経験しています。</p>
-          </section>
-          <section class="career-row" aria-labelledby="experience-heading">
-            <h3 id="experience-heading" data-i18n="experienceTitle">主な取り組み</h3>
-            <p data-i18n="experienceCopy">繰り返す作業を目的と手順に分けて考え、改善案を実際のツールにすることを大切にしています。業務の監視準備・ログ整理用ツールと個人のAWS作品を、AIの支援を受けて制作。要件や使い方の検討、業務での利用、AWSへの設定・公開を担当しています。</p>
-          </section>
-          <section class="career-row" aria-labelledby="skills-heading">
-            <h3 id="skills-heading" data-i18n="skillsTitle">資格・学習</h3>
-            <p data-i18n="skillsCopy">AWS CLF：2026年9月取得。AWS SAA：学習中。日本語能力試験N1・日商簿記2級取得。</p>
-          </section>
-        </div>
-        <p class="profile-document-note" data-i18n="profileNote">このページには経歴と取り組みの要点を掲載しています。学歴・職務経歴の詳細は、提出用の履歴書・職務経歴書をご覧ください。</p>
-      </div>
+    <section class="content-section section-wrap" id="about" aria-labelledby="about-title">
+      <p class="section-label">01 / ABOUT ME</p><h2 id="about-title" data-i18n="aboutTitle">これまでの経験と、現在の取り組み。</h2><p class="section-intro" data-i18n="aboutCopy">姜 成龍（きょう せいりゅう）です。2026年3月に明治大学会計専門職研究科を修了し、4月から株式会社CACクロスフュージョンで勤務しています。運用・保守の経験とAWSの学習、個人制作を通じてクラウド・インフラ分野を目指しています。</p>
+      <dl class="profile-facts"><div><dt data-i18n="roleLabel">志望分野</dt><dd data-i18n="roleValue">クラウド・インフラ設計・構築</dd></div><div><dt data-i18n="placeLabel">希望勤務地</dt><dd data-i18n="placeValue">札幌</dd></div><div><dt data-i18n="interestLabel">関心のある領域</dt><dd data-i18n="interestValue">AWS / 運用 / 自動化</dd></div></dl>
+      <div class="career-profile"><section class="career-row"><h3 data-i18n="careerTitle">職務経歴</h3><p data-i18n="careerCopy">2026年4月に正社員として入社しました。Java・Oracle Database・Springの新人研修を経て、7月から2案件の定常監視に携わっています。手順書に沿ったテストや本番リリース、異常時のログの引き継ぎ、翌年度のバッチ稼働カレンダー作成を経験しました。</p></section><section class="career-row"><h3 data-i18n="experienceTitle">業務改善と個人制作</h3><p data-i18n="experienceCopy">繰り返し発生する作業を見直し、準備や整理の手間を減らす工夫に取り組んでいます。AIの支援を受けて、監視業務の準備やログ整理に使うツールと、AWSを使った個人作品を制作しました。要件や利用手順の検討、ツールの業務利用、AWS環境の設定・公開、動作確認を担当しています。</p></section><section class="career-row"><h3 data-i18n="skillsTitle">AWSの資格・学習</h3><p data-i18n="skillsCopy">2026年9月にAWS Certified Cloud Practitionerを取得しました。現在はAWS Certified Solutions Architect – Associateの取得に向けて学習しています。</p></section></div><p class="profile-document-note" data-i18n="profileNote">このページには経歴と取り組みの要点を掲載しています。学歴・職務経歴の詳細は、提出用の履歴書・職務経歴書をご覧ください。</p>
+      <div class="sapporo-note" id="sapporo"><h3 data-i18n="sapporoKicker">札幌で働きたい理由</h3><p data-i18n="sapporoCopy">以前から北海道で暮らすことを希望していました。写真撮影や旅行を通じて自然に触れる時間を大切にしており、自然が身近にある札幌に生活の基盤を築きたいと考えています。札幌でクラウド・インフラ分野の仕事に携わり、腰を据えて経験を積んでいきたいと思っています。</p></div>
     </section>
-
-    <section class="work section-wrap" id="work" aria-labelledby="work-title">
-      <div class="section-heading">
-        <div><p class="section-label"><span class="section-number">02</span><span>WORK & LEARNING</span></p><h2 id="work-title" data-i18n="workTitle">気づきを、形にする。</h2></div>
-        <p class="section-aside" data-i18n="workIntro">何を使ったかだけでなく、
-何を考え、どう確かめたか。</p>
-      </div>
-      <article class="project project-cloud">
-        <div class="project-art cloud-art" aria-hidden="true">
-          <div class="cloud-orbit orbit-one"></div><div class="cloud-orbit orbit-two"></div>
-          <svg viewBox="0 0 160 120"><path d="M43 87h74a25 25 0 0 0 1-50A39 39 0 0 0 44 40a24 24 0 0 0-1 47Z"/><path class="cloud-arrow" d="M80 94V53m-13 13 13-13 13 13"/></svg>
-          <span class="art-caption">BUILD · DEPLOY · UNDERSTAND</span><span class="art-index">PROJECT / 01</span>
-        </div>
-        <div class="project-body">
-          <div class="project-meta"><span>AWS / WEB</span><span class="project-status" data-i18n="awsStatus">AWSで稼働中</span></div>
-          <h3 data-i18n="awsTitle">このサイトと写真アプリを、
-AWSで動かす。</h3>
-          <p data-i18n="awsCopy">招待された訪問者が、経歴を読み、写真を閲覧・ダウンロードできるサイトです。下の構成図で、ファイル配信と写真目録APIの関係を説明します。</p>
-          <p><a class="text-link" data-photo-app-link href="photos/index.html?lang=ja"><span data-photo-app-label>写真を閲覧・ダウンロード</span><span aria-hidden="true">↗</span></a></p>
-          <p><a class="text-link" data-log-check-link href="log-check/index.html?lang=ja" data-i18n="logCheckEntry">ログ連携・検査レポートを見る →</a></p>
-          <details><summary><span data-i18n="awsSummary">現在の進捗を見る</span><span class="details-icon" aria-hidden="true">＋</span></summary><p data-i18n="awsDetail">非公開S3・CloudFront・Python Lambda・DynamoDBで稼働中。92枚・9撮影地を掲載し、ページ送り・撮影地別表示・原寸JPGダウンロードに対応。写真はローカルで準備し、本人が確認して公開します。百万枚規模や大規模負荷の検証は行っていません。</p></details>
-          <details class="ai-contribution"><summary><span data-i18n="aiSummary">AIとの制作分担</span><span class="details-icon" aria-hidden="true">＋</span></summary>
-            <dl class="contribution-list">
-              <div><dt data-i18n="humanLabel">本人の担当</dt><dd data-i18n="humanCopy">目的・要件・取捨選択、写真と内容の提供、AWSの操作、結果の確認とフィードバック。</dd></div>
-              <div><dt data-i18n="aiLabel">Codexが支援したこと</dt><dd data-i18n="aiCopy">初版の設計・コード・翻訳案、デプロイ準備、トラブル調査と機能検証を支援。</dd></div>
-              <div><dt data-i18n="nextOwnershipLabel">これから取り組むこと</dt><dd data-i18n="nextOwnershipCopy">サービスのつながりとコードの理解、判断を伴う修正・運用経験の積み重ね。操作の成功と理解の定着は区別しています。</dd></div>
-            </dl>
-          </details>
-        </div>
-      </article>
-      <section class="architecture" id="architecture" aria-labelledby="architecture-title" data-view="all">
-        <div class="architecture-header">
-          <div><p class="architecture-kicker" data-i18n="architectureKicker">このサイトの仕組み</p><h3 id="architecture-title" data-i18n="architectureTitle">このサイトを動かす、2つの経路。</h3><p class="architecture-intro" data-i18n="architectureIntro">ページ・写真の配信と、写真一覧の取得。操作を選ぶと、使うサービスとデータの流れを確認できます。</p></div>
-          <span class="architecture-status" data-i18n="architectureStatus">AWSで稼働中 · 東京</span>
-        </div>
-        <div class="architecture-controls" role="group" aria-labelledby="architecture-title">
-          <button type="button" data-architecture-view="all" aria-pressed="true" aria-controls="architecture-map architecture-explanation" data-i18n="architectureAll">全体を見る</button>
-          <button type="button" data-architecture-view="page" aria-pressed="false" aria-controls="architecture-map architecture-explanation" data-i18n="architecturePage">ページを開く</button>
-          <button type="button" data-architecture-view="catalog" aria-pressed="false" aria-controls="architecture-map architecture-explanation" data-i18n="architectureCatalog">写真一覧を取得</button>
-          <button type="button" data-architecture-view="download" aria-pressed="false" aria-controls="architecture-map architecture-explanation" data-i18n="architectureDownload">原寸JPGをダウンロード</button>
-        </div>
-        <p class="architecture-invite" data-i18n="architectureInvite">入口は共有された招待リンク。ブラウザに保存した署名付きCookieを、CloudFrontが保護対象へのリクエストごとに確認します。</p>
-        <div class="architecture-map" id="architecture-map" role="group" aria-labelledby="architecture-title" aria-describedby="architecture-legend">
-          <div class="architecture-node"><small data-i18n="architectureVisitorLabel">訪問者</small><strong data-i18n="architectureBrowser">ブラウザ</strong><p data-i18n="architectureBrowserCopy">画面を表示し、ページ・API・画像をリクエスト</p></div>
-          <span class="architecture-arrow" aria-hidden="true">→</span>
-          <div class="architecture-node architecture-gateway"><small data-i18n="architectureGateway">共通の入口</small><strong>CloudFront</strong><p data-i18n="architectureCloudFrontCopy">招待の確認
-パスに応じた振り分け
-静的ファイルのキャッシュ</p></div>
-          <svg class="architecture-fork" viewBox="0 0 42 400" preserveAspectRatio="none" aria-hidden="true"><path d="M0 200H14M14 100V300M14 100H39L34 96M39 100L34 104M14 300H39L34 296M39 300L34 304"/></svg>
-          <div class="architecture-routes">
-            <div class="architecture-route" data-route="files">
-              <p class="architecture-route-label"><span data-i18n="architectureFilesRoute">01 · ページ・画像・原寸JPG</span></p>
-              <div class="architecture-node architecture-storage"><small data-i18n="architectureFilesLabel">ファイルの保存先</small><strong data-i18n="architectureS3">非公開 S3 バケット</strong><p data-i18n="architectureS3Copy">HTML / CSS / JavaScript・プレビュー画像・原寸JPG。同じバケット内の別パスに保存。</p><p class="architecture-resource">cj-job-portfolio-20261024-resume</p></div>
-            </div>
-            <div class="architecture-route" data-route="api">
-              <p class="architecture-route-label"><span data-i18n="architectureApiRoute">02 · 写真一覧の問い合わせ</span><code>/api/photos</code></p>
-              <div class="architecture-api">
-                <div class="architecture-node architecture-compute"><small data-i18n="architectureLambdaLabel">Pythonの処理</small><strong>Lambda</strong><p data-i18n="architectureLambdaCopy">写真の情報を読み取り、一覧をJSONで返す</p><p class="architecture-resource">cj-photo-api</p></div>
-                <span class="architecture-arrow" aria-hidden="true">→</span>
-                <div class="architecture-node architecture-database"><small data-i18n="architectureDatabaseLabel">写真の目録</small><strong>DynamoDB</strong><p data-i18n="architectureDatabaseCopy">写真ID・画像のパス・サイズなど。JPG本体は保存しない。</p><p class="architecture-resource">cj-photo-catalog</p></div>
-              </div>
-              <p class="architecture-log-note" data-i18n="architectureCloudWatch">Lambdaの実行ログ → CloudWatch Logs（7日保持）</p>
-            </div>
-          </div>
-        </div>
-        <p class="architecture-legend" id="architecture-legend" data-i18n="architectureLegend">矢印はリクエストの向き。ファイルやJSONは逆の経路でブラウザへ返ります。静的ファイルはキャッシュがあればS3への再取得を省略します。</p>
-        <p class="architecture-explanation" id="architecture-explanation" aria-live="polite" aria-atomic="true" data-i18n="architectureExplainAll">ページと写真はCloudFront経由でS3から配信。写真一覧だけがLambdaからDynamoDBを読み取ります。ブラウザは一覧に含まれるURLを使って、画像を別途リクエストします。</p>
-        <dl class="architecture-evidence">
-          <div><dt data-i18n="architectureAccessTitle">アクセスの境界を分ける</dt><dd data-i18n="architectureAccessCopy">訪問者の招待確認と、CloudFrontから非公開の保存先・APIへのアクセス権限を別に設定。</dd></div>
-          <div><dt data-i18n="architectureSeparationTitle">ファイル配信と処理を分ける</dt><dd data-i18n="architectureSeparationCopy">Lambdaは目録の読み取りに限定。大きなJPGはCloudFrontとS3から直接配信。</dd></div>
-          <div><dt data-i18n="architectureVerifiedTitle">実際の結果を確かめる</dt><dd data-i18n="architectureVerifiedCopy">92枚の目録と実際の4ページ（24/24/24/20）、9撮影地の絞り込み、ファイル配信の抜き取り確認を実施。招待と匿名の直接アクセスの境界にも検証記録があります。</dd></div>
-        </dl>
-        <aside class="architecture-independent" aria-labelledby="log-check-title">
-          <div class="architecture-independent-header"><h4 id="log-check-title">Cloud Log Check</h4><span data-i18n="architectureLogStatus">必要時のログ受け渡し · AWS正常結果を確認</span></div>
-          <p data-i18n="architectureLogIntro">写真APIのログをローカルで整理し、本人が既存の入力バケットへ投入します。自動収集ではなく、原寸JPGのダウンロードは検査対象外です。</p>
-          <div class="architecture-log-flow" role="group" aria-labelledby="log-check-title">
-            <div class="architecture-node"><small data-i18n="architectureInputBucket">入力用のS3バケット</small><strong>S3 · incoming/*.jsonl</strong><p data-i18n="architectureInputCopy">本人がJSONLログを投入すると起動</p></div>
-            <span class="architecture-arrow" aria-hidden="true">→</span>
-            <div class="architecture-node"><small data-i18n="architectureCheckLabel">ログ内容の検査</small><strong>Lambda · Log Check</strong><p data-i18n="architectureCheckCopy">形式・必須項目・ERRORの有無を確認</p></div>
-            <span class="architecture-arrow" aria-hidden="true">→</span>
-            <div class="architecture-node"><small data-i18n="architectureReportBucket">別の出力用S3バケット</small><strong>S3 · JSON report</strong><p data-i18n="architectureReportCopy">検査結果をJSONで保存</p></div>
-          </div>
-          <p data-i18n="architectureLogNotify">内容にERROR / INVALID → LambdaからSNSへ通知 → メール。検査処理そのものが失敗 → CloudWatch Alarm → SNS → メール。</p>
-          <p data-i18n="architectureLogBoundary">写真一覧APIのログを必要時に検査します。正常結果はAWS、障害・形式テストはローカル実行です。リアルタイム監視ではありません。</p>
-          <a class="architecture-entry" href="log-check/index.html?lang=ja" data-log-check-link data-i18n="logCheckEntry">ログ連携・検査レポートを見る →</a>
-          <p><a class="text-link" href="https://github.com/Colin-Jiang976/job-portfolio" target="_blank" rel="noopener noreferrer" data-i18n="siteSourceEntry">サイトのソースコード / GitHub ↗</a></p>
-        </aside>
-        <details class="architecture-technical"><summary data-i18n="architectureTechnical">権限・パス・検証範囲をもう少し詳しく</summary><ul>
-          <li data-i18n="architectureTechnicalInvite">招待はローカルの署名ツールで発行します。/invite/* は共通の公開入口で、入口のJavaScriptがCookieを保存。署名の検証はCloudFrontが行い、招待用Lambdaはありません。</li>
-          <li data-i18n="architectureTechnicalOrigins">S3にはS3用OACとバケットポリシー、APIにはLambda用OACとAWS_IAMの関数URLを使用。Lambdaの実行ロールには対象の写真目録をQueryする権限を設定しています。</li>
-          <li data-i18n="architectureTechnicalPaths">ページ /・/photos/*、プレビュー /assets/photos/*、原寸JPG /photo-originals/* はS3へ。/api/* はLambdaへ振り分け、APIのCloudFrontキャッシュは無効にしています。</li>
-          <li data-i18n="architectureTechnicalLimits">本人の写真92枚で機能とアクセス境界を確認しています。百万枚規模の取り込み・負荷試験や業務システムの本番運用実績ではありません。予算メールと利用量制限は総費用の上限保証ではありません。</li>
-        </ul></details>
-      </section>
-      <article class="project project-tool">
-        <div class="project-art tool-art" aria-hidden="true">
-          <div class="terminal-window"><div class="terminal-top"><i></i><i></i><i></i><span>monitoring tool</span></div><div class="terminal-line"><b>01</b><span>observe</span><em>→</em></div><div class="terminal-line"><b>02</b><span>understand</span><em>→</em></div><div class="terminal-line"><b>03</b><span>automate</span><em>↗</em></div><div class="terminal-cursor"></div></div>
-          <span class="art-caption">FROM DAILY WORK TO AUTOMATION</span><span class="art-index">PROJECT / 02</span>
-        </div>
-        <div class="project-body">
-          <div class="project-meta"><span>MONITORING / AUTOMATION</span><span class="project-status" data-i18n="toolStatus">実務で使用 · 自作ツール</span></div>
-          <h3 data-i18n="toolTitle">日々の監視から、
-自動化のきっかけを。</h3>
-          <p data-i18n="toolCopy">日々の運用手順をもとに、AIの支援を受けて制作したWindows PowerShellツール。勤務時間帯と更新日からログを選んで開き、早番の監視ページ起動もまとめます。ログの内容判断は人が行います。</p>
-          <div class="tool-result"><span data-i18n="toolResultLabel">自動化した範囲</span><strong data-i18n="toolResult">ログ・画面の閲覧準備を一つの入口に</strong><small data-i18n="toolResultNote">設定例では通常の早番に5フォルダー・最大13ログ・3ページを扱います。例の対象数であり、実業務の操作回数や時間短縮の測定値ではありません。</small></div>
-          <p><a class="text-link" href="work-tools/index.html?lang=ja" data-tools-link data-i18n="toolsEntry">ツールの例・検証・ソースコードを見る →</a></p>
-          <p><a class="text-link" href="https://github.com/Colin-Jiang976/my-work-tools" target="_blank" rel="noopener noreferrer" data-i18n="toolSourceEntry">ツールのソースコード / GitHub ↗</a></p>
-          <details><summary><span data-i18n="toolSummary">動作・検証・残る手作業</span><span class="details-icon" aria-hidden="true">＋</span></summary><p data-i18n="toolDetail">早番／遅番の選択、遅番の一部フォルダーでの選択位置変更、月曜の土日分補完をコードで確認。ローカルの選択・プレビュー・設定・認証情報保存にはテスト記録があります。認証情報の取用、ログ判読、祝日連休の補完は人が担当します。業務環境でのレビュー版の動作と時間短縮は未検証です。下のリンクで設定例・保存済みの検証と制限を確認できます。</p></details>
-        </div>
-      </article>
-    </section>
-
-    <section class="career-row section-wrap" id="java-practice" aria-labelledby="java-practice-title">
-      <h3 id="java-practice-title" data-i18n="javaPracticeTitle">Java / LeetCodeの学習記録</h3>
-      <div><p data-i18n="javaPracticeCopy">LeetCodeで取り組んだJavaの演習をまとめた別の学習リポジトリです。ハッシュ表・スライディングウィンドウ・バックトラッキングなどを扱い、コードとコメントを公開しています。写真APIやLog CheckのPythonコードとは別の資料です。</p><a class="text-link" href="https://github.com/Colin-Jiang976/leetcode-java" target="_blank" rel="noopener noreferrer"><span data-i18n="javaPracticeLink">GitHubで練習コードを見る</span><span aria-hidden="true">↗</span></a></div>
-    </section>
-
-    <section class="sapporo" id="sapporo" aria-labelledby="sapporo-title">
-      <div class="section-wrap sapporo-inner">
-        <div class="sapporo-heading"><p class="section-label"><span class="section-number">03</span><span>WHY SAPPORO</span></p><h2 id="sapporo-title" data-i18n="sapporoTitle">自然を、
-暮らしのそばに。</h2><span class="sapporo-word" aria-hidden="true">SAPPORO</span></div>
-        <div class="sapporo-story"><span class="story-kicker" data-i18n="sapporoKicker">この街を選びたい理由</span><p data-i18n="sapporoCopy">以前から北海道で学び、暮らすことを希望していました。写真撮影や旅行を通じて自然に親しむ時間を大切にしており、自然が身近にある札幌に生活の基盤を築きたいと考えています。札幌でクラウド・インフラ分野の仕事に取り組み、技術と暮らしの両面で長く続けられる環境をつくることを希望しています。</p><p class="sapporo-quote" data-i18n="sapporoQuote">写真は、好きなものと、
-暮らしたい場所を伝える言葉。</p><p class="photo-intro" data-i18n="photoIntro">自分で撮影した各地の風景。自然の色や街の光を通して、好きなものと暮らしへの思いを伝えます。写真を選ぶと、大きく表示できます。</p><p class="photo-intro"><a class="text-link" data-photo-app-link href="photos/index.html?lang=ja"><span data-photo-app-label>写真を閲覧・ダウンロード</span><span aria-hidden="true">↗</span></a></p></div>
-        <div class="photo-grid" id="photo-gallery" aria-label="Photography / 写真 / 摄影"></div>
-      </div>
-    </section>
-
-    <section class="resume section-wrap" id="resume" aria-labelledby="resume-title">
-      <div><p class="section-label"><span class="section-number">04</span><span>PROFILE & RESUME</span></p><h2 id="resume-title" data-i18n="resumeTitle">もう少し、詳しく。</h2><p data-i18n="resumeCopy">学歴・職務経歴や資格、これまでの取り組みをまとめた資料を掲載しています。入社時期はできるだけ早期を希望し、具体的な日程はご相談の上で調整いたします。採用に関するご連絡は、以下のメールまたは電話からお願いします。</p>
-        <h3 data-i18n="documentsTitle">提出用の書類</h3>
-        <p id="document-status" role="status">履歴書・職務経歴書は準備中です。用意できた書類をここからダウンロードできるようにします。</p>
-        <div id="document-downloads"></div>
-        <div id="contact-links"></div>
-      </div>
+    <section class="content-section section-wrap" id="resume" aria-labelledby="resume-title"><p class="section-label">DOCUMENTS & CONTACT</p><h2 id="resume-title" data-i18n="documentsTitle">提出用の書類</h2><p class="section-intro" data-i18n="resumeCopy">学歴・職務経歴や資格、これまでの取り組みをまとめた資料を掲載しています。入社時期はできるだけ早期を希望し、具体的な日程はご相談の上で調整いたします。採用に関するご連絡は、以下のメールまたは電話からお願いします。</p><p id="document-status" role="status"></p><div id="document-downloads" class="document-downloads"></div><div id="contact-links" class="contact-links"></div></section>
+    <section class="content-section section-wrap" id="work" aria-labelledby="work-title"><p class="section-label">02 / PROJECTS</p><h2 id="work-title" data-i18n="workTitle">運用の経験から、制作へ。</h2><p class="section-intro" data-i18n="workIntro">日々の業務で感じた課題をもとにしたツールと、AWSを使った個人作品を紹介します。</p>
+      <article class="project"><div class="project-heading"><span class="project-meta">AWS / WEB</span><h3 data-i18n="awsTitle">AWSで動く写真アプリ</h3><a class="button button-primary" href="photos/index.html?lang=ja" data-page-link="photos/index.html" data-i18n="photoExperienceAction">写真アプリを体験</a></div><div class="project-body"><p data-i18n="awsCopy">自分で撮影した写真を、招待した方が閲覧・ダウンロードできるように制作しました。撮影地での絞り込みとページ送りに対応しています。</p><p data-i18n="awsDetail">写真ファイルはS3、写真の目録はDynamoDBに保存しています。CloudFrontがファイルを配信し、Python製のLambdaが目録を取得する構成です。</p><details class="ai-contribution"><summary data-i18n="aiSummary">制作の分担とAIの活用</summary><dl class="contribution-list"><div><dt data-i18n="humanLabel">私の担当</dt><dd data-i18n="humanCopy">要件や利用手順の検討、写真・掲載内容の作成、AWS環境の設定と公開、動作の確認を担当しました。</dd></div><div><dt data-i18n="aiLabel">AIを活用した部分</dt><dd data-i18n="aiCopy">設計案、コードの作成・修正、翻訳、ローカル検証には、Codexの支援を利用しました。</dd></div></dl></details><p><a class="text-link" href="https://github.com/Colin-Jiang976/job-portfolio" target="_blank" rel="noopener noreferrer" data-i18n="siteSourceEntry">サイトのソースコード / GitHub ↗</a></p></div></article>
+      <article class="project"><div class="project-heading"><span class="project-meta">MONITORING / AUTOMATION</span><h3 data-i18n="toolTitle">監視準備とログ整理のツール</h3><a class="button button-outline" href="work-tools/index.html?lang=ja" data-page-link="work-tools/index.html" data-i18n="toolsEntry">ツールの設定例・検証記録・ソースコード →</a></div><div class="project-body"><p data-i18n="toolCopy">日々の監視準備で繰り返していたログの選択やページ起動をまとめるため、AIの支援を受けてPowerShellツールを制作しました。更新日と勤務時間帯に応じてログを選び、監視ページを開きます。</p><p data-i18n="toolResultNote">ログの内容確認や、異常があった場合の判断は担当者が行います。</p><details><summary data-i18n="toolSummary">選択ルールと公開版について</summary><p data-i18n="toolDetail">早番・遅番に応じたログの選択と、月曜早番の土日分の補完に対応しています。祝日・連休分の確認は手動です。公開リポジトリのreview/は、業務で使用している版をもとに整理したもので、ローカル環境で動作を検証しています。設定例と検証記録はツールの紹介ページに掲載しています。</p></details><p><a class="text-link" href="https://github.com/Colin-Jiang976/my-work-tools" target="_blank" rel="noopener noreferrer" data-i18n="toolSourceEntry">ツールのソースコード / GitHub ↗</a></p></div></article>
+      <article class="project"><div class="project-heading"><span class="project-meta">JAVA / STUDY</span><h3 data-i18n="javaPracticeTitle">Java / LeetCodeの学習記録</h3></div><div class="project-body"><p data-i18n="javaPracticeCopy">Javaで取り組んだLeetCodeの演習をまとめた学習リポジトリです。ハッシュ表、スライディングウィンドウ、バックトラッキングなどの解法を、コードとコメントで記録しています。</p><a class="text-link" href="https://github.com/Colin-Jiang976/leetcode-java" target="_blank" rel="noopener noreferrer" data-i18n="javaPracticeLink">GitHubで練習コードを見る</a></div></article>
     </section>
   </main>
-  <footer class="footer section-wrap"><a class="footer-brand" href="#top">CLOUD & NATURE</a><p data-i18n="footerNote">AWSで稼働中 · 本人撮影作品 · 経歴と制作記録</p><a class="back-top" href="#top"><span data-i18n="backTop">ページ上部へ</span><span aria-hidden="true">↑</span></a></footer>
-  <div class="preview-note"><span class="status-dot"></span><span data-i18n="draftLabel">AWS稼働中 · 経歴と作品</span></div>
+  <footer class="footer section-wrap"><a class="brand" href="#top">CLOUD <span>&</span> NATURE</a><p data-i18n="footerNote">AWSで稼働中 · 本人撮影作品 · 経歴と制作記録</p><a href="#top" data-i18n="backTop">ページ上部へ</a></footer>
 </body>
 </html>

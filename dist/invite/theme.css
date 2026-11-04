@@ -1,0 +1,15 @@
+/* 求职首页、架构、工具、报告及邀请入口共用；相册采用独立自然主题。 */
+:root{
+  color-scheme:dark;
+  --paper:#111b2a;
+  --surface:#172537;
+  --ink:#eef2f7;
+  --muted:#b5c2d2;
+  --line:#33445b;
+  --accent:#ffb04a;
+  --cyan:#7dc9d7;
+  --sans:system-ui,-apple-system,"Segoe UI","Yu Gothic","Microsoft YaHei",sans-serif;
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--paper);
+}

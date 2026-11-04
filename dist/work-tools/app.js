@@ -13,6 +13,7 @@
     document.querySelectorAll('[data-lang]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lang === language)));
     document.querySelectorAll('[data-home]').forEach(link => { link.href = '../index.html?lang=' + language + '#work'; });
     document.querySelector('[data-log-check]').href = '../log-check/index.html?lang=' + language;
+    document.querySelectorAll('[data-architecture]').forEach(link => { link.href = '../architecture.html?lang=' + language; });
   }
   document.querySelectorAll('[data-lang]').forEach(button => button.addEventListener('click', () => {
     language = button.dataset.lang;

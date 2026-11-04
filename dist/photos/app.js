@@ -44,8 +44,8 @@
     document.title = texts[language].pageTitle;
     document.querySelectorAll('[data-i18n]').forEach(node => { node.textContent = text(node.dataset.i18n); });
     document.querySelectorAll('[data-lang]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lang === language)));
-    document.querySelectorAll('.brand,#back').forEach(link => {
-      link.href = '../index.html?lang=' + language + (link.id === 'back' ? '#sapporo' : '');
+    document.querySelectorAll('.brand,#back,[data-home-link]').forEach(link => {
+      link.href = '../index.html?lang=' + language;
     });
     try {
       const url = new URL(location.href); url.searchParams.set('lang', language); history.replaceState(null, '', url);

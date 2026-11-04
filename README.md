@@ -14,9 +14,18 @@
 
 ## 代码入口
 
+界面修订（本地，待发布）：首页以“了解我”和“了解我的项目”为两条主入口；个人经历与正式PDF从首页进入，照片体验独立保留自然风格。原有架构图移至architecture.html，由首页顶部导航和独立横条直达。网页个人摘要聚焦运维和AWS；正式履历文件沿用已确认版本。
+
+对外文案已按招聘方的阅读场景统一整理为三语：个人经历与项目分工采用作者视角，具体测试条件集中在技术说明及验证记录中；内部学习提醒保留在本地项目记录。
+
+架构页现包含本机照片准备与发布、访客读取两条流程。AWS服务节点使用官方架构图标；选用的原始SVG及来源记录保存在dist/assets/aws-icons/，本机Python、Node.js和AWS CLI明确放在维护者电脑区域。
+
+首页、架构、日志报告、工具示例与邀请入口共用深蓝/橙色主题，相册单独保留自然风格。公共邀请入口使用invite/theme.css中的同内容配色副本，避免在邀请验证前依赖受保护的根路径样式。
+
 | 位置 | 内容 |
 | --- | --- |
-| [dist](dist) | HTML/CSS/JavaScript、三语文字与首页五张WebP展示副本 |
+| [dist](dist) | HTML/CSS/JavaScript、三语文字与既有WebP展示副本 |
+| [dist/architecture.html](dist/architecture.html) | 三语的本机准备/发布、访客读取流程及AWS服务架构图 |
 | [dist/photos](dist/photos) | 相册、地点显示翻译、预览与下载链接 |
 | [backend/photo-api](backend/photo-api) | Python3.12只读API、地点目录与分页 |
 | [Photo-Maintenance.cmd](Photo-Maintenance.cmd) | 本机照片维护菜单 |

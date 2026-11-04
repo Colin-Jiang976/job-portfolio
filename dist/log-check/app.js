@@ -44,6 +44,7 @@
     document.querySelectorAll('.brand,#back').forEach(link => {
       link.href = '../index.html?lang=' + language + (link.id === 'back' ? '#work' : '');
     });
+    document.querySelectorAll('[data-architecture]').forEach(link => { link.href = '../architecture.html?lang=' + language; });
     status.textContent = state ? t(state) : '';
     retry.hidden = !['unavailable','empty'].includes(state);
     document.querySelector('#generated').textContent = generated ? t('generated').replace('{time}', date(generated)) : '';
